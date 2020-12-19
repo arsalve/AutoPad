@@ -2,10 +2,10 @@
   "name": "olnotes",
   "version": "0.0.1",
   "description": "online notepad app",
-  "main": "index.js ",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js --Port=8080
+    "start": "node index.js --port=8080"
   },
   "author": "Ashish Salve",
   "license": "ISC",
@@ -17,4 +17,5 @@
     "nodemon": "^2.0.6",
     "yargs": "^16.2.0"
   }
+ 
 }
