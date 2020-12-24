@@ -1,18 +1,19 @@
 const express = require('express')
 const app = express();
-const yargs = require('yargs')
+const yargs = require('yargs');
 const chalk = require('chalk');
 const ErrorC = chalk.red.inverse;
 const Warning = chalk.yellowBright;
 const suc = chalk.greenBright;
-var port;
+const port = process.env.PORT || 8080;
 var debug = true;
+/*
 if ((yargs.argv.Port != undefined) && (typeof (yargs.argv.Port) == "number")) {
     port = yargs.argv.Port
 } else {
     console.log(Warning("Port not found so tracking targetes on usual location"))
     port = 80;
-}
+}*/
 try {
 
     app.get('/', (req, res) => {
