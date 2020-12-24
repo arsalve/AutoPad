@@ -4,7 +4,6 @@
   "description": "online notepad app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "author": "Ashish Salve",

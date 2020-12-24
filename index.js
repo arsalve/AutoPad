@@ -5,46 +5,93 @@ const chalk = require('chalk');
 const ErrorC = chalk.red.inverse;
 const Warning = chalk.yellowBright;
 const suc = chalk.greenBright;
-const good=chalk.cyanBright;
-var port;
+const good = chalk.cyanBright;
+const mongo = require('mongodb');
+const port = process.env.PORT || 8080;
 var debug = true;
-if ((yargs.argv.Port != undefined) && (typeof (yargs.argv.Port) == "number")) {
-    port = yargs.argv.Port
-} else {
-    console.log(Warning("Port not found so tracking targetes on usual location"))
-    port = 80;
-}
+
 try {
 
-    var mysql = require('mysql');
 
-    var con = mysql.createConnection({
-        host: "overlordwordgame.000webhostapp.com",
-        user: "id14515125_gamescore",
-        password: "Ashish@19961",
-        database:"id14515125_gamedb"
+    const MongoClient = require('mongodb').MongoClient;
+    const uri = "mongodb+srv://Alpha1996:Alpha1996@notepad.marpq.mongodb.net/<dbname>?retryWrites=true&w=majority";
+    const client = new MongoClient(uri, {
+        useNewUrlParser: true
     });
 
-    con.connect(function (err) {
-        if (err) {
-            catchHandler("While conecting the DB",err,ErrorC)
+    app.listen(port, () => {
+        console.log(suc(`ready for targates on  http://localhost:${port}`));
+    });
+
+    app.get('/Update', (req, res) => {
+        var myobj = {
+            ID: "Company Inc",
+            VALUE: "Highway 37"
         };
-        console.log(good("Connected!"));
-    });
+
+        client.connect(err => {
+            if (err) {
+                catchHandler("While conecting the DB", err, ErrorC);
+                throw err;
+            };
+            console.log(good("Connected!"));
+            const db = client.db("Notepad");
+            var myobj = {
+                ID: Date.now(),
+                DAta: "Highway 37Highway 37Highway 37Highway 37Highway 37Highway 37Highway 37Highway 37"
+            };
+            db.collection("test").insertOne(myobj, function (err, res) {
+                if (err) throw err;
+
+
+            })
+
+
+        })
+        res.send("1 document inserted")
+    })
+
+
+    app.get('/find', (req, res) => {
+        console.log(suc("result"));
+        client.connect(err => {
+            if (err) {
+                catchHandler("While conecting the DB", err, ErrorC);
+                throw err;
+            };
+            console.log(good("Connected!"));
+            const db = client.db("Notepad");
+            var query = {
+                ID: 1608402560685
+            };
+            db.collection("test").find(
+                query
+            ).toArray(function (err, result) {
+                if (err) throw err;
+                console.log(chalk.red.inverse(result));
+
+                res.send(result)
+            });
+        });
+
+
+
+
+
+    })
 
     app.get('/', (req, res) => {
         res.send('Lets Lift off')
     })
 
-    app.listen(port, () => {
-        console.log(suc(`ready for targates on  http://localhost:${port}`));
-    })
+
+
+
+
 } catch (error) {
     catchHandler("starting the server", error);
 
 }
-
-
 
 
 function catchHandler(location, message, color) {
