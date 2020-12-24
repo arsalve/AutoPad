@@ -86,6 +86,7 @@ function FindObj(req,cb) {
 
             });
         }
+
     });
 
 }
@@ -118,6 +119,7 @@ function catchHandler(location, message, color) {
         if (color == undefined) {
             color = chalk.blueBright;
         }
+
         console.error(color("error occured when " + location + "\n" + message))
     }
 }
