@@ -1,3 +1,5 @@
+     var url="http://localhost:8080/"
+     var url="https://project-notepad.herokuapp.com"
      function load_text() {
          if (document.location.hash != "") {
              var data = JSON.stringify({
@@ -16,7 +18,7 @@
                  }
              });
 
-             xhr.open("POST", "http://localhost:8080/find");
+             xhr.open("POST", url+"/find");
              xhr.setRequestHeader("Content-Type", "application/json");
 
              xhr.send(data);
@@ -42,7 +44,7 @@
              }
          });
 
-         xhr.open("POST", "http://localhost:8080/Update");
+         xhr.open("POST",  url+"/Update");
          xhr.setRequestHeader("Content-Type", "application/json");
 
          xhr.send(data);
