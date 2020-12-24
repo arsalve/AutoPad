@@ -44,7 +44,7 @@
              }
          });
 
-         xhr.open("POST",  url+"/Update");
+         xhr.open("POST",  url+ "/Update");
          xhr.setRequestHeader("Content-Type", "application/json");
 
          xhr.send(data);
