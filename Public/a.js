@@ -1,5 +1,5 @@
-     var url="http://localhost:8080/"
-     var url="https://project-notepad.herokuapp.com"
+     var url="http://localhost:8080"
+     //var url="https://project-notepad.herokuapp.com"
      function load_text() {
          if (document.location.hash != "") {
              var data = JSON.stringify({
@@ -13,6 +13,7 @@
              xhr.addEventListener("readystatechange", function () {
                  if (this.readyState === 4) {
                      document.getElementById("output").value = JSON.parse(this.response)[0].data;
+
                      console.log(this.responseText);
                      debugger
                  }
@@ -20,11 +21,11 @@
 
              xhr.open("POST", url+"/find");
              xhr.setRequestHeader("Content-Type", "application/json");
-
              xhr.send(data);
 
          } else {
-             document.getElementById("output").value = "Put #<anyrandomstring> to store and access the data";
+            document.location.hash=Date.now();
+             document.getElementById("output").value = "Use "+ document.location+document.location.hash+" to access the data on any device";
          }
      }
 
@@ -58,4 +59,14 @@
          if (document.location.hash != "")
              Update();
 
-     }, 60000);
+     }, 6000);
+
+function copyText() {
+  var copyText =  document.getElementById("output").value;
+  window.prompt("Copy to clipboard: Ctrl+C, Enter", copyText);
+}
+
+function copyURL() {
+    var copyText =  window.location.href;
+    window.prompt("Copy to clipboard: Ctrl+C, Enter", copyText);
+  }

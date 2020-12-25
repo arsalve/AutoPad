@@ -1,30 +1,73 @@
-<!DOCTYPE html>
-<html>
-<title>simple notepad</title>
+ <!--
+Design by Bryant Smith
+http://www.bryantsmith.com
+http://www.aszx.net
+email: templates [-at-] bryantsmith [-dot-] com
+Released under Creative Commons Attribution 2.5 Generic.  In other words, do with it what you please; but please leave the link if you'd be so kind :)
 
-<head>
-    <script type="text/javascript" src= 'a.js'></script>
-</head>
+Name       : The Slant
+Version    : 1.0
+Released   : 2009-07-25
+-->
 
-<body onload="load_text()">
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+ <html xmlns="http://www.w3.org/1999/xhtml">
 
-    <form name="controls" id="controls">
-        <select style="width: 310px">
-            <option selected>fonts</option>
-            <option>arial black</option>
-        </select>
+ <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <link rel="stylesheet" type="text/css" href="style.css" />
+     <script type="text/javascript" src='a.js'></script>
+     <title>The Autopad</title>
+ </head>
 
-        <input id="button1" type="button" value="Update" name="button1" style="font-weight: bold; width: 26px; height: 24px"
-            size="28" onclick="Update()">
+ <body onload="load_text()">
+     <div id="page">
+         <div id="header">
+             <h1>The Autopad </h1>
+             <ul>
+                 <li><a onClick="Update()">Save Data</a></li>
+                 <li><a onClick="load_text()">Load Data</a></li>
+                 <li><a onClick="copyURL()">Copy URL</a></li>
+                 <li><a onClick="copyText()">Copy Data</a></li>
+             </ul>
+         </div>
 
-        
+         <div id="main">
 
-        <br /><textarea style="width: 399px; height: 182px" id="output" name="output" rows="9" wrap="virtual"
-            cols=48></textarea><br>
+             <div class="main_top">
+               <h3 class="instructionglow">Instructions</h3>
+                <p>By using this notepad you can store your notes and share / access it using the URL you are typeing on 🙃 </p>
+                <p>If you are forget things just like me you can store things to remember here and access it via url.🤓<br>
+                If you find hard to remember the url🥴 you can change the word after # symbol and replace it with anything🤩 i.e  you want so that your URL will be "http://localhost:8080/#EasyToRememberWord"</p>
+                <br><h4 class="glow">you can use this to share your lacture notes with friends or classmates(समझदार को इशारा काफी है🤪)</h4>
+             </div>
 
-        <p align="center"><input type="reset" value="clear"></p>
-    </form>
+             <div class="main_body">
 
-</body>
 
-</html>
+                 <div id="wrapper">
+
+                     <form id="paper" method="get" action="">
+                         <textarea placeholder="Enter something funny." id="output" name="output"></textarea>
+                         <br>
+                     </form>
+
+                 </div>
+             </div>
+
+             <div class="main_bottom"></div>
+
+         </div>
+
+
+
+         <div id="footer">
+             <p class="instructionglow">
+                Developed In India by Ashish Salve
+             </p>
+         </div>
+
+     </div>
+ </body>
+
+ </html>

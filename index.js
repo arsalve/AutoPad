@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const yargs = require('yargs');
 var fs = require('fs');
 const chalk = require('chalk');
 const path =require('path')
@@ -9,11 +8,9 @@ const ErrorC = chalk.red.inverse;
 const Warning = chalk.yellowBright;
 const suc = chalk.greenBright;
 const good = chalk.cyanBright;
-const mongo = require('mongodb');
 const port = process.env.PORT || 8080;
 var debug = true;
 const MongoClient = require('mongodb').MongoClient;
-const e = require('express');
 const uri = "mongodb+srv://Alpha1996:Alpha1996@notepad.marpq.mongodb.net/<dbname>?retryWrites=true&w=majority";
 const client = new MongoClient(uri, {
     useNewUrlParser: true,
