@@ -1,5 +1,5 @@
-     var url="http://localhost:8080"
-     //var url="https://project-notepad.herokuapp.com"
+   //var url="http://localhost:8080"
+     var url="https://project-notepad.herokuapp.com"
      function load_text() {
          if (document.location.hash != "") {
              var data = JSON.stringify({
