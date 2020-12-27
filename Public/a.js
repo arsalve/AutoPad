@@ -25,7 +25,7 @@
 
          } else {
             document.location.hash=Date.now();
-             document.getElementById("output").value = "Use "+ document.location+document.location.hash+" to access the data on any device";
+             document.getElementById("output").value = "Use "+ document.location+" to access the data on any device";
          }
      }
 
@@ -56,7 +56,7 @@
      }
 
      setTimeout(function () {
-         if (document.location.hash != "")
+         if ((document.location.hash !="")&&  (document.getElementById("output").value!="")&&(document.getElementById("output").value!= "Use "+ document.location+" to access the data on any device"))
              Update();
 
      }, 6000);
