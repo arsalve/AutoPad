@@ -5,12 +5,8 @@ const path = require('path')
 const bodyParser = require("body-parser");
 const chalk = require('chalk');
 const ErrorC = chalk.red.inverse;
-const Warning = chalk.yellowBright;
 const suc = chalk.greenBright;
-const good = chalk.cyanBright;
-
 const port = process.env.PORT || 8080;
-
 const DataManupulation = require('./CustomPackages/DataManupulation.js');
 const {
     exception
@@ -27,7 +23,7 @@ try {
     app.listen(port, () => {
         console.log(suc(`ready for targates on  http://localhost:${port}`));
     });
-    app.post('/Update', (req, res) => {
+    app.patch('/Update', (req, res) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
         let Responce = DataManupulation.Updatrdata(req, (responce) => {
             res.send(responce);
@@ -60,6 +56,6 @@ try {
     }
 
 } catch (error) {
-    catchHandler("starting the server", error);
+    catchHandler("starting the server", error,ErrorC);
 
 }

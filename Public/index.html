@@ -3,10 +3,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-     <link rel="stylesheet" type="text/css" href="Styles/style.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/style.css" />
     <script type="text/javascript" src='Scripts/Script.js'></script>
     <title>The Autopad</title>
 </head>
@@ -20,13 +21,13 @@
                 <li><a onClick="load_text()">Load Data</a></li>
                 <li><a onClick="copyURL()">Copy URL</a></li>
                 <li><a onClick="copyText()">Copy Data</a></li>
-                <li id='Markdown'><a onClick="Markdown()">  Markdown</a></li>
+                <li id='Encrypt'><a onClick=""> Encrypt</a></li>
             </ul>
         </div>
 
         <div id="main">
 
-            <div class="main_top">
+            <div class="main_top" id="Instruction" hidden=true>
                 <h3 class="instructionglow">Instructions</h3>
                 <p>By using this notepad you can store your notes and share / access it using the URL you are typeing on
                     🙃 </p>
@@ -38,14 +39,16 @@
                 <h4 class="glow">you can use this to share your lacture notes with friends or classmates(समझदार को इशारा
                     काफी है🤪)</h4>
             </div>
-
-            <div class="main_body" >
+            <div class="main" id="UpdateStatus" hidden=false>
+                <h3 class="instructionglow" id="UpdateStatusText"></h3>
+            </div>
+            <div class="main_body">
 
 
                 <div id="wrapper">
 
                     <form id="paper" method="get" action="">
-                        <textarea placeholder="Enter something funny." id="output" name="output" ></textarea>
+                        <textarea placeholder="Enter something funny." id="output" name="output"></textarea>
                         <br>
                     </form>
 
