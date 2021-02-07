@@ -11,8 +11,7 @@ const schema = mongoose.Schema({
         type: String
     },
     'Encrypted': {
-        type: boolean,
-        d
+        type: String
     }
 },
     {
