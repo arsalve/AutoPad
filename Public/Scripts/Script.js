@@ -68,12 +68,12 @@
        try {
            Hash = sessionStorage.getItem('Hash');
            OGHash = sessionStorage.getItem("OGHash");
-           if(Hash==undefined||OGHash==undefined){
+           if(Hash==undefined||OGHash==undefined||Hash==null||OGHash==null){
             var xhr = new XMLHttpRequest();
             xhr.addEventListener("readystatechange", function () {
  
                 if (this.readyState === 4) {
-                    if (this.response != "object not Found") {
+                    if (this.response != "object not Found"||this.response != "error"||this.response != "Error") {
                         var responseData = JSON.parse(this.response)[0];
                         document.getElementById("Instruction").hidden = true;
                         document.getElementById("UpdateStatus").hidden = false;
