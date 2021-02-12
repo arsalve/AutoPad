@@ -13,6 +13,9 @@
        var Hash;
        Hash = sessionStorage.getItem('Hash');
        var PWD;
+       var data = JSON.stringify({
+               "id": document.location.hash,
+           });
        sessionStorage.getItem('Password') == null ? PWD = prompt("Enter Password") : PWD = sessionStorage.getItem('Password');
        if (Hash == null) {
            sessionStorage.setItem('Hash', stringToHash(PWD));
@@ -20,9 +23,7 @@
            sessionStorage.setItem('Password', PWD);
        }
        if (document.location.hash != "") {
-           var data = JSON.stringify({
-               "id": document.location.hash,
-           });
+  
            var xhr = new XMLHttpRequest();
            xhr.addEventListener("readystatechange", function () {
 
@@ -33,7 +34,6 @@
                        document.getElementById("Instruction").hidden = true;
                        document.getElementById("UpdateStatus").hidden = false;
                        document.getElementById("UpdateStatusText").innerHTML = 'Last Updated: ' + new Date(responseData.updatedAt);
-
                        Decrypted = CryptoJS.AES.decrypt(responseData.data, sessionStorage.getItem('Password'))
                        document.getElementById("output").value = Decrypted.toString(CryptoJS.enc.Utf8);
                        if (responseData.Encrypted == true) {
