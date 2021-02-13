@@ -1,9 +1,4 @@
 # AutoPad
-Online Notepad which stores the notes on web based Notepad and can be access using URL parameters
-
-
-
-
 
 *Instructions To Use*:-
 
@@ -14,3 +9,8 @@ Online Notepad which stores the notes on web based Notepad and can be access usi
   If you find hard to remember the url🥴 you can change the word after # symbol and replace it with anything🤩 i.e  your URL will be "http://localhost:8080/#EasyToRememberWord"
   
   you can use this to share your lacture notes with friends or classmates(समझदार को इशारा काफी है🤪)
+  
+  in simple wordsit is an  Online Notepad which stores the notes on web based Notepad and can be access using URL parameters
+
+
+  
