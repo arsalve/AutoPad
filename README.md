@@ -2,7 +2,10 @@
 Online Notepad which stores the notes on web based Notepad and can be access using URL parameters
 
 
-*Instructions To Use*
+
+
+
+*Instructions To Use*:-
 
   By using this notepad you can store your notes and share / access it using the URL you are typeing on 🙃
 
