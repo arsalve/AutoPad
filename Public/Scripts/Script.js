@@ -1,9 +1,8 @@
-   if (window.location.href.includes("localhost:8080")) {
-       var url = "http://localhost:8080"
-   } else if (window.location.href.includes('https://project-notepad.herokuapp.com')) {
-       var url = "https://project-notepad.herokuapp.com"
-   } else if (window.location.href.includes('http://autopad.dinafo.com')) {
-       var url = 'http://autopad.dinafo.com';
+var url='';
+  if (window.location.href.includes("localhost:8080")) {
+        url = "http://localhost:8080";
+   } else {
+        url = "https://project-notepad.herokuapp.com";
    }
    // Importing 'crypto' module 
 
