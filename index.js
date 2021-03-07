@@ -18,6 +18,10 @@ try {
     app.use(bodyParser.urlencoded({
         extended: true
     }));
+    app.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        next();
+      });
     app.use(express.static(path.join(__dirname, './Public')));
     app.use(bodyParser.json());
     app.listen(port, () => {

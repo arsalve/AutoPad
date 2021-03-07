@@ -49,7 +49,8 @@ var url='';
                } 
            });
            xhr.open("POST", url + "/find");
-           xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+           xhr.setRequestHeader("Access-Control-Allow-Origin","*");
            xhr.send(data);
        } else {
            document.location.hash = Date.now();
@@ -84,7 +85,9 @@ var url='';
        if (sessionStorage.getItem('OGHash') == Hash || sessionStorage.getItem('OGHash') == 'new') {
            var xhr = new XMLHttpRequest();
            xhr.open("PATCH", url + "/Update");
-           xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+           xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+         
            xhr.send(data);
            xhr.addEventListener("readystatechange", function () {
                if (this.readyState === 4) {
