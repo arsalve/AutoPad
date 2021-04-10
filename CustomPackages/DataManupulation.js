@@ -34,7 +34,7 @@ async function Updatrdata(req, resp) {
             'id': req.body.id
         }
         var obj = req.body;
-
+        
         var resp = await notes.findOneAndUpdate(query, obj, {
             new: true,
             upsert: true, // Make this update into an upsert
@@ -51,15 +51,6 @@ async function Updatrdata(req, resp) {
     }
 
 
-}
-function catchHandler(location, message, color) {
-    if (debug = true) {
-        if (color == undefined) {
-            color = chalk.blueBright;
-        }
-
-        console.error(color("error occured when " + location + "\n" + message))
-    }
 }
 module.exports = {
     'FindObj': FindObj,

@@ -203,7 +203,7 @@ color:#CCCCCC;
 	  -o-user-select: none;
 	  user-select: none; 
   }
-  #output {
+  .output {
 	width:75%;
 	  overflow:hidden;
 	  background-color:#FFF;

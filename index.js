@@ -1,4 +1,3 @@
-
 const express = require('express');
 const app = express();
 const path = require('path')
@@ -18,20 +17,27 @@ try {
     app.use(bodyParser.urlencoded({
         extended: true
     }));
+    app.use((req, res, next) => {
+        const allowedOrigins = ['http://localhost:8080', 'http://project-notepad.herokuapp.com'];
+        const origin = req.headers.origin;
+        if (allowedOrigins.includes(origin)) {
+            res.setHeader('Access-Control-Allow-Origin', origin);
+        }
+        next();
+    });
     app.use(express.static(path.join(__dirname, './Public')));
-    app.use(bodyParser.json());
+    app.use(bodyParser.json({limit: '50mb'}))
+   
     app.listen(port, () => {
         console.log(suc(`ready for targates on  http://localhost:${port}`));
     });
     app.patch('/Update', (req, res) => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
+
         let Responce = DataManupulation.Updatrdata(req, (responce) => {
             res.send(responce);
         });
     })
     app.post('/find', (req, res) => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-
         var responce = DataManupulation.FindObj(req, (responce) => {
             res.send(responce);
         });
@@ -56,6 +62,6 @@ try {
     }
 
 } catch (error) {
-    catchHandler("starting the server", error,ErrorC);
+    catchHandler("starting the server", error, ErrorC);
 
 }

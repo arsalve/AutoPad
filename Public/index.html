@@ -32,7 +32,7 @@
                 <li><a onClick="Update()">Save Data</a></li>
                 <li><a onClick="load_text(true)">Load Data</a></li>
                 <li><a onClick="copyURL()">Copy URL</a></li>
-                <li><a onClick="copyText()">Copy Data</a></li>
+                <li><a id ="saveBTN" onClick="saveIMG()">Save Imgage</a></li>
                 <li id='Encrypt'><a onClick=""> Encrypted</a></li>
             </ul>
         </div>
@@ -61,7 +61,9 @@
                 <div id="wrapper">
 
                     <form id="paper" method="get" action="">
-                        <textarea placeholder="Enter something funny." id="output" name="output"></textarea>
+                     <input id="imgSelector" type="file" onchange="convIMG(this)" hidden= true />
+                        <textarea placeholder="Enter something To store." id="output" class="output"></textarea>
+                        <img src="" id="ConvIMG" class="output">
                         <br>
                     </form>
 

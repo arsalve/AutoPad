@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { boolean } = require('yargs');
 const schema = mongoose.Schema({
     'id': {
         type: String

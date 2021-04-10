@@ -9,7 +9,6 @@ var url='';
    function load_text(Inst) {
        var Hash;
        Hash = sessionStorage.getItem('Hash');
-
        if (Hash == null) {
            var PWD;
            sessionStorage.getItem('Password') == null ? PWD = prompt('Enter Your Password For Encryption(default=123', 123) : PWD = sessionStorage.getItem('Password');
@@ -28,18 +27,28 @@ var url='';
 
                    if (this.response != "object not Found") {
                        var responseData = JSON.parse(this.response)[0];
-                       document.getElementById("Instruction").hidden = true;
+                       document.getElementById("Instruction").hidden = false;
                        document.getElementById("UpdateStatus").hidden = false;
                        document.getElementById("UpdateStatusText").innerHTML = 'Last Updated: ' + new Date(responseData.updatedAt);
                        sessionStorage.setItem("OGHash", responseData.Hash);
                        if (Inst == true) {
                         Decrypted = CryptoJS.AES.decrypt(responseData.data, sessionStorage.getItem('Password'))
-                           document.getElementById("output").value = Decrypted.toString(CryptoJS.enc.Utf8);
-                           document.getElementById("Instruction").hidden = false;
+                        let Decry= Decrypted.toString(CryptoJS.enc.Utf8);
+                        if (Decry.includes("data:image")) {
+                            saveIMG() 
+                            document.getElementById("output").innerHTML=Decry;
+                            document.getElementById("ConvIMG").src=Decry;
+                        } else {
+                            document.getElementById("output").value =Decry;
+                        }
+                         
+                           
+                         
                            document.getElementById("UpdateStatus").hidden = true;
                        }
                        console.log(responseData);
                    } else {
+                    document.getElementById("Instruction").hidden = false;
                        var PWD;
                        sessionStorage.getItem('Password') == null ? PWD = prompt('Enter Your Password For Encryption(default=123', 123) : PWD = sessionStorage.getItem('Password');
                        sessionStorage.setItem('Password', PWD);
@@ -49,7 +58,8 @@ var url='';
                } 
            });
            xhr.open("POST", url + "/find");
-           xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+         
            xhr.send(data);
        } else {
            document.location.hash = Date.now();
@@ -64,7 +74,7 @@ var url='';
            Hash = sessionStorage.getItem('Hash');
        } catch {
            var PWD;
-           sessionStorage.getItem('Password') == null ? PWD = prompt('Enter Your Password For Encryption(default=123', 123) : PWD = sessionStorage.getItem('Password');
+           sessionStorage.getItem('Password') == null ? PWD = prompt('Enter Your Password For Encryption(default=123)', 123) : PWD = sessionStorage.getItem('Password');
            sessionStorage.setItem('Hash', stringToHash(PWD));
            Hash = sessionStorage.getItem('Hash');
            sessionStorage.setItem('Password', PWD);
@@ -84,7 +94,9 @@ var url='';
        if (sessionStorage.getItem('OGHash') == Hash || sessionStorage.getItem('OGHash') == 'new') {
            var xhr = new XMLHttpRequest();
            xhr.open("PATCH", url + "/Update");
-           xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+           
+         
            xhr.send(data);
            xhr.addEventListener("readystatechange", function () {
                if (this.readyState === 4) {
@@ -105,11 +117,30 @@ var url='';
 
    }, 6000);
 
-   function copyText() {
-       var copyText = document.getElementById("output").value;
-       window.prompt("Copy to clipboard: Ctrl+C, Enter", copyText);
-   }
+   function saveIMG() {
+    document.getElementById("saveBTN").onclick="text()";
+    document.getElementById("saveBTN").innerHTML="Text Mode";
+    document.getElementById("imgSelector").hidden=false;
+    document.getElementById("output").hidden=true;
 
+     
+   }
+   function text(){
+    document.getElementById("saveBTN").onclick="saveIMG()";
+    document.getElementById("saveBTN").innerHTML="Image Mode";
+    document.getElementById("imgSelector").hidden=true;
+    document.getElementById("output").hidden=false
+   }
+   function convIMG(Img) {
+    var file = Img.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+    document.getElementById("output").value=reader.result;
+    document.getElementById("ConvIMG").src=reader.result;
+      console.log('RESULT', reader.result)
+    }
+    reader.readAsDataURL(file);
+   }
    function copyURL() {
        var copyText = window.location.href;
        window.prompt("Copy to clipboard: Ctrl+C, Enter", copyText);
