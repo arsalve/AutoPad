@@ -21,6 +21,7 @@ var url='';
                "id": document.location.hash,
            });
            var xhr = new XMLHttpRequest();
+           xhr.setRequestHeader('Access-Control-Allow-Origin',url)
            xhr.addEventListener("readystatechange", function () {
 
                if (this.readyState === 4) {
@@ -59,7 +60,7 @@ var url='';
            });
            xhr.open("POST", url + "/find");
             xhr.setRequestHeader("Content-Type", "application/json");
-         
+            xhr.setRequestHeader('Access-Control-Allow-Origin',url)
            xhr.send(data);
        } else {
            document.location.hash = Date.now();
@@ -95,7 +96,7 @@ var url='';
            var xhr = new XMLHttpRequest();
            xhr.open("PATCH", url + "/Update");
             xhr.setRequestHeader("Content-Type", "application/json");
-           
+            xhr.setRequestHeader('Access-Control-Allow-Origin',url)
          
            xhr.send(data);
            xhr.addEventListener("readystatechange", function () {
@@ -118,11 +119,13 @@ var url='';
    }, 6000);
 
    function saveIMG() {
-    document.getElementById("saveBTN").onclick="text()";
+   if(document.getElementById("saveBTN").innerHTML=="Text Mode"){
+    text()
+   }else{
     document.getElementById("saveBTN").innerHTML="Text Mode";
     document.getElementById("imgSelector").hidden=false;
     document.getElementById("output").hidden=true;
-
+   }
      
    }
    function text(){
