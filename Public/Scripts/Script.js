@@ -60,7 +60,7 @@ var url='';
            });
            xhr.open("POST", url + "/find");
             xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader('Access-Control-Allow-Origin',"*");
+            xhr.setRequestHeader('Access-Control-Allow-Origin',url);
            xhr.send(data);
        } else {
            document.location.hash = Date.now();
@@ -96,8 +96,7 @@ var url='';
            var xhr = new XMLHttpRequest();
            xhr.open("PATCH", url + "/Update");
             xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader('Access-Control-Allow-Origin',"*");
-         
+            xhr.setRequestHeader('Access-Control-Allow-Origin',url);
            xhr.send(data);
            xhr.addEventListener("readystatechange", function () {
                if (this.readyState === 4) {
