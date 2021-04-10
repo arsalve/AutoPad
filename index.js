@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const app = express();
 const path = require('path')
 const bodyParser = require("body-parser");
@@ -17,16 +18,17 @@ try {
     app.use(bodyParser.urlencoded({
         extended: true
     }));
-    app.use((req, res, next) => {
-        const allowedOrigins = ['http://localhost:8080', 'http://project-notepad.herokuapp.com'];
-        const origin = req.headers.origin;
-        console.log("Results",origin)
-        if (allowedOrigins.includes(origin)) {
-            console.log("Results",origin)
-            res.setHeader('Access-Control-Allow-Origin', origin);
-        }
-        next();
-    });
+    // app.use((req, res, next) => {
+    //     const allowedOrigins = ['http://localhost:8080', 'http://project-notepad.herokuapp.com'];
+    //     const origin = req.headers.origin;
+    //     console.log("Results",origin)
+    //     if (allowedOrigins.includes(origin)) {
+    //         console.log("Results",origin)
+    //         res.setHeader('Access-Control-Allow-Origin', origin);
+    //     }
+    //     next();
+    // });
+    app.use(cors());
     app.use(express.static(path.join(__dirname, './Public')));
     app.use(bodyParser.json({limit: '50mb'}))
    
@@ -64,6 +66,6 @@ try {
     }
 
 } catch (error) {
-    catchHandler("starting the server", error, ErrorC);
+    console.log(ErrorC("starting the server", error));
 
 }
