@@ -18,7 +18,6 @@ try {
         extended: true
     }));
     app.use((req, res, next) => {
-<<<<<<< HEAD
         const allowedOrigins = ['http://localhost:8080', 'http://project-notepad.herokuapp.com'];
         const origin = req.headers.origin;
         if (allowedOrigins.includes(origin)) {
@@ -26,11 +25,6 @@ try {
         }
         next();
     });
-=======
-        res.header('Access-Control-Allow-Origin', '*');
-        next();
-      });
->>>>>>> bf0d29c10b5b06032a2dda70375727a0329b9be3
     app.use(express.static(path.join(__dirname, './Public')));
     app.use(bodyParser.json({limit: '50mb'}))
    
