@@ -18,9 +18,11 @@ try {
         extended: true
     }));
     app.use((req, res, next) => {
-        const allowedOrigins = ['http://localhost:8080', 'http://project-notepad.herokuapp.com'];
+        const allowedOrigins = ['http://localhost:8080', 'project-notepad'];
         const origin = req.headers.origin;
+        console.log("Results",origin)
         if (allowedOrigins.includes(origin)) {
+            console.log("Results",origin)
             res.setHeader('Access-Control-Allow-Origin', origin);
         }
         next();
