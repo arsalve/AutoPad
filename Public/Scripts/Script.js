@@ -21,7 +21,7 @@ var url='';
                "id": document.location.hash,
            });
            var xhr = new XMLHttpRequest();
-           xhr.setRequestHeader('Access-Control-Allow-Origin',"*");
+           
            xhr.addEventListener("readystatechange", function () {
 
                if (this.readyState === 4) {
