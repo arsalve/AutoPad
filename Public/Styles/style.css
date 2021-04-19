@@ -101,7 +101,10 @@ background-color: #2222227d;
 color: rgb(249, 255, 244);
 
 }
-
+input#imgSelector {
+    padding: inherit;
+    margin-top: 43px;
+}
 
 #main .main_top h1
 {
@@ -205,7 +208,7 @@ color:#CCCCCC;
   }
   .output {
 	width:75%;
-	  overflow:hidden;
+	  overflow:scroll;
 	  background-color:#FFF;
 	  color:#222;
 	  font-family:Courier, monospace;

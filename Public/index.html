@@ -2,6 +2,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
@@ -30,10 +32,10 @@
             <h1>The Autopad </h1>
             <ul>
                 <li><a onClick="Update()">Save Data</a></li>
-                <li><a onClick="load_text(true)">Load Data</a></li>
-                <li><a onClick="copyURL()">Copy URL</a></li>
+                <li><a onClick="load_text(false)">Load Data</a></li>
+                <li><a onClick="donload()">Download</a></li>
                 <li><a id ="saveBTN" onClick="saveIMG()">Save Imgage</a></li>
-                <li id='Encrypt'><a onClick=""> Encrypted</a></li>
+                <li id='Clear'><a onClick="Clear()"> Clear Data</a></li>
             </ul>
         </div>
 
@@ -62,8 +64,8 @@
 
                     <form id="paper" method="get" action="">
                      <input id="imgSelector" type="file" onchange="convIMG(this)" hidden= true />
-                        <textarea placeholder="Enter something To store." id="output" class="output"></textarea>
-                        <img src="" id="ConvIMG" class="output">
+                       <div id="output"><textarea id='text' placeholder="Enter something To store." class="output"></textarea></div>
+                        
                         <br>
                     </form>
 
