@@ -1,9 +1,12 @@
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
 const app = express();
-const path = require('path')
+const path = require('path');
+const ytdl = require('ytdl-core');
 const bodyParser = require("body-parser");
 const chalk = require('chalk');
+app.use('/static', express.static('./static'));
+
 const ErrorC = chalk.red.inverse;
 const suc = chalk.greenBright;
 const port = process.env.PORT || 8080;
@@ -47,13 +50,26 @@ try {
         });
 
     });
-    app.get('*', (req, res) => {
+    app.get('/', (req, res) => {
+        
         fs.readFile(__dirname + '\\index.html', 'utf8', function (err, text) {
-            res.send(text);
+            res.send(text,{ root: './' });
         });
     })
+    // app.get('*', (req, res) => {
+        
+    //     fs.readFile(__dirname + '\\index.html', 'utf8', function (err, text) {
+    //         res.send(text,{ root: './' });
+    //     });
+    // })
 
-
+  
+    
+    app.get('/YTDdownload', (req, res) => {
+        var Yurl = req.query.YTD;;    
+        res.header("Content-Disposition", 'attachment;\  filename="'+Yurl.split('=')[1]+'.mp4');    
+        ytdl(Yurl, {format: 'mp4'}).pipe(res);
+    });
 
     function catchHandler(location, message, color) {
         if (debug = true) {

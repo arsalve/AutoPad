@@ -7,6 +7,7 @@ if (window.location.href.includes("localhost:8080")) {
 // Importing 'crypto' module 
 
 function load_text(Inst) {
+  
     var Hash;
     Hash = sessionStorage.getItem('Hash');
     if (Hash == null) {
@@ -221,7 +222,42 @@ function copyURL() {
     var copyText = window.location.href;
     window.prompt("Copy to clipboard: Ctrl+C, Enter", copyText);
 }
+function saveText(){
+    document.getElementById("Download").onclick = "YTD()";
+    document.getElementById("Download").innerHTML = "Autopad";
+    document.getElementById("YTD").hidden = true;
+    document.getElementById("main").hidden = false
+    window.location.hostname
+}
 
+function YTD(){
+    
+    document.getElementById("downform").action=url + "/YTDdownload";
+    document.getElementById("Download").onclick = "saveText()";
+    document.getElementById("Download").innerHTML = "Back to Autopad";
+    
+    document.getElementById("YTD").hidden = false;
+    document.getElementById("main").hidden = true
+    
+}
+function YTDDL() {
+    if(document.getElementById("YTDURL").value!=""||document.getElementById("YTDURL").value!=undefined||document.getElementById("YTDURL").value!=null){
+    var xhr = new XMLHttpRequest();
+        xhr.open("POST", url + "/YTDdownload");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+        var data={
+            'url':document.getElementById("YTDURL").value
+        };
+        xhr.send(JSON.stringify(data));
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                document.write(this.responseText);
+            }
+        });
+    }
+}
 function stringToHash(string) {
 
     var hash = 0;
