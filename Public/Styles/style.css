@@ -193,7 +193,20 @@ color:#CCCCCC;
   body {
 	  background:#333 url('../Img/inflicted.png') repeat;        
   }
-  #paper {
+  input.form-control {
+    width: fit-content;
+    color-scheme: auto;
+    background: #FFF;
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+}
+input.btn.btn.btn-primary.btn-lg {
+    padding: 2%;
+    align-content: center;
+    margin: 4%;
+}
+  #paper  {
 	  color:#FFF;
 	  font-size:20px;
   }

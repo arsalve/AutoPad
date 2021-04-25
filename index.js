@@ -16,25 +16,18 @@ const {
 } = require('console');
 let debug = true;
 let fs = require('fs');
+const { format } = require('path');
 
 try {
     app.use(bodyParser.urlencoded({
         extended: true
     }));
-    // app.use((req, res, next) => {
-    //     const allowedOrigins = ['http://localhost:8080', 'http://project-notepad.herokuapp.com'];
-    //     const origin = req.headers.origin;
-    //     console.log("Results",origin)
-    //     if (allowedOrigins.includes(origin)) {
-    //         console.log("Results",origin)
-    //         res.setHeader('Access-Control-Allow-Origin', origin);
-    //     }
-    //     next();
-    // });
     app.use(cors());
     app.use(express.static(path.join(__dirname, './Public')));
-    app.use(bodyParser.json({limit: '50mb'}))
-   
+    app.use(bodyParser.json({
+        limit: '50mb'
+    }))
+
     app.listen(port, () => {
         console.log(suc(`ready for targates on  http://localhost:${port}`));
     });
@@ -51,24 +44,45 @@ try {
 
     });
     app.get('/', (req, res) => {
-        
+
         fs.readFile(__dirname + '\\index.html', 'utf8', function (err, text) {
-            res.send(text,{ root: './' });
+            res.send(text, {
+                root: './'
+            });
         });
     })
-    // app.get('*', (req, res) => {
-        
-    //     fs.readFile(__dirname + '\\index.html', 'utf8', function (err, text) {
-    //         res.send(text,{ root: './' });
-    //     });
-    // })
 
-  
-    
     app.get('/YTDdownload', (req, res) => {
-        var Yurl = req.query.YTD;;    
-        res.header("Content-Disposition", 'attachment;\  filename="'+Yurl.split('=')[1]+'.mp4');    
-        ytdl(Yurl, {format: 'mp4'}).pipe(res);
+
+        var Yurl = req.query.YTD;
+        var info = ytdl.getInfo(Yurl).then((info) => {
+            var quality = req.query.qualitySelector;
+            var itil;
+            (info.formats).forEach(Format => {
+                if(quality==Format.qualityLabel){
+                    itil=Format.itag;
+                }
+            });
+            if(quality=="Only Mp3")
+             {
+                res.header("Content-Disposition", 'attachment;\  filename="' + info.videoDetails.title + '.mp3');
+                ytdl(Yurl, {
+                    format: 'mp3',
+                    filter: 'audioonly',
+                    quality: "highestaudio"
+                }).pipe(res);
+            }
+            else  {
+                if(itil==undefined){
+                    itil  = "highest";
+                }
+                res.header("Content-Disposition", 'attachment;\  filename="' + info.videoDetails.title+ '.mp4');
+                ytdl(Yurl, {
+                    format: 'mp4',
+                    quality: itil
+                }).pipe(res);
+            }
+        });
     });
 
     function catchHandler(location, message, color) {
