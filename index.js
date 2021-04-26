@@ -16,7 +16,9 @@ const {
 } = require('console');
 let debug = true;
 let fs = require('fs');
-const { format } = require('path');
+const {
+    format
+} = require('path');
 
 try {
     app.use(bodyParser.urlencoded({
@@ -56,31 +58,40 @@ try {
 
         var Yurl = req.query.YTD;
         var info = ytdl.getInfo(Yurl).then((info) => {
-            var quality = req.query.qualitySelector;
-            var itil;
-            (info.formats).forEach(Format => {
-                if(quality==Format.qualityLabel){
-                    itil=Format.itag;
+            try {
+                var quality = req.query.qualitySelector;
+                var itil;
+                if (quality == "low Mp3") {
+                    res.header("Content-Disposition", 'attachment;\  filename="' + info.videoDetails.title + '.mp3');
+                    ytdl(Yurl, {
+                        format: 'mp3',
+                        filter: 'audioonly',
+                        quality: "lowestaudio"
+                    }).pipe(res);
+                } else if (quality == "high Mp3") {
+                    res.header("Content-Disposition", 'attachment;\  filename="' + info.videoDetails.title + '.mp3');
+                    ytdl(Yurl, {
+                        format: 'mp3',
+                        filter: 'audioonly',
+                        quality: "highestaudio"
+                    }).pipe(res);
+                } else {
+                    if ((quality == undefined) || (quality == 'Automatic')) {
+                        itil = {
+                            'format': 'mp4'
+                        };
+                    } else {
+                        itil = {
+                            'format': 'mp4',
+                            'quality': quality
+                        };
+                    }
+                    res.header("Content-Disposition", 'attachment;\  filename="' + info.videoDetails.title + '.mp4');
+                    ytdl(Yurl, itil).pipe(res);
                 }
-            });
-            if(quality=="Only Mp3")
-             {
-                res.header("Content-Disposition", 'attachment;\  filename="' + info.videoDetails.title + '.mp3');
-                ytdl(Yurl, {
-                    format: 'mp3',
-                    filter: 'audioonly',
-                    quality: "highestaudio"
-                }).pipe(res);
-            }
-            else  {
-                if(itil==undefined){
-                    itil  = "highest";
-                }
-                res.header("Content-Disposition", 'attachment;\  filename="' + info.videoDetails.title+ '.mp4');
-                ytdl(Yurl, {
-                    format: 'mp4',
-                    quality: itil
-                }).pipe(res);
+            } catch (err) {
+                catchHandler("While Finding data in the DB", err, ErrorC);
+
             }
         });
     });
