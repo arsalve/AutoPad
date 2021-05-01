@@ -6,7 +6,7 @@
 
   If you are forget things just like me you can store things to remember here and access it via url. We dont see your Data as your data is Now secure with AES Encryption and Only   you know the password🤓
 
-  If you find hard to remember the url🥴 you can change the word after # symbol and replace it with anything🤩 i.e  your URL will be "http://localhost:8080/#EasyToRememberWord"
+  If you find hard to remember the url🥴 you can change the word after # symbol and replace it with anything🤩 i.e  your URL will be "http://project-notepad.herokuapp.com#_EasyToRememberWord_"
   
   you can use this to share your lacture notes with friends or classmates(समझदार को इशारा काफी है🤪)
   
