@@ -87,7 +87,7 @@ try {
                         };
                     }
                     res.header("Content-Disposition", 'attachment;\  filename="' + info.videoDetails.title + '.mp4');
-                    ytdl(Yurl, itil).pipe(res);
+                    var resdata=ytdl(Yurl, itil).pipe(res);
                 }
             } catch (err) {
                 catchHandler("While Finding data in the DB", err, ErrorC);

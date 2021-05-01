@@ -1,7 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 
 
 
@@ -10,6 +10,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <link rel="stylesheet" type="text/css" href="Styles/style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" src='Scripts/Script.js'></script>
     <title>The Autopad</title>
     <link rel="icon" href="Img/Title.png" type="image/icon type">
@@ -28,97 +37,131 @@
 </head>
 
 <body onload="load_text(true)">
-    <div id="page">
-        <div id="header">
-            <h1><a id='Download' onClick='YTD()'>The Autopad </a></h1>
-            <ul>
-                <li><a onClick="Update()">Save Data</a></li>
-                <li><a onClick="load_text(false)">Load Data</a></li>
-                <li><a onClick="donload()">Download</a></li>
-                <li><a id="saveBTN" onClick="saveIMG()">Save Image</a></li>
-                <li id='Clear'><a onClick="Clear()"> Clear Data</a></li>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+        <button class="navbar-toggler text-end navbar-right"" type=" button" data-toggle="collapse"
+            data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <a class="">The Autopad </a>
+
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto ">
+
+                <li class="nav-item ">
+                    <h3><a class="navbar-link" id='Download' onClick='YTD()' style="color:#dc0066">The Autopad </a></h3>
+
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" onClick="Update()">Save Data</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onClick="load_text(false)">Load Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onClick="donload()">Download</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="saveBTN" onClick="saveIMG()">Save Image</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onClick="Clear()"> Clear Data</a>
+                </li>
             </ul>
-        </div>
-
-        <div id="main">
-
-            <div class="main_top" id="Instruction" hidden=true>
-                <h3 class="instructionglow">Instructions</h3>
-                <p>By using this notepad you can store your notes/Images and share / access it using the URL you are
-                    typeing on
-                    🙃 </p>
-                <p>If you are forget things just like me you can store things to remember here and access it via
-                    url. We dont see your Data as your data is Now secure with AES Encryption and Only you know the
-                    password🤓<br>
-                    If you find hard to remember the url🥴 you can change the word after # symbol and replace it with
-                    anything🤩 i.e your URL will be "http://localhost:8080/#EasyToRememberWord"</p>
-                <br>
-                <h4 class="glow">you can use this to share your lacture notes /Images with friends or classmates(समझदार
-                    को इशारा
-                    काफी है🤪)</h4>
-            </div>
-            <div class="main" id="UpdateStatus" hidden=false>
-                <h3 class="instructionglow" id="UpdateStatusText"></h3>
-            </div>
-            <div class="main_body">
-
-
-                <div id="wrapper">
-
-                    <form id="paper" method="get" action="">
-                        <input id="imgSelector" type="file" onchange="convIMG(this)" hidden=true />
-                        <div id="output"><textarea id='text' placeholder="Enter something To store."
-                                class="output"></textarea></div>
-
-                        <br>
-                    </form>
-
-                </div>
-            </div>
-
-           
 
         </div>
-        <div id="YTD" hidden=true>
-            <div class="main_body">
-                <div id="wrapper">
-                    <div class="container-fluid">
-                        <div class="jumbotron text-center">
-                            <h3>YouTube Downloader</h3>
-                        </div>
-                        <div class="row">
-                            <div>
-                                <form id="downform" action="http://localhost:8080/download/" method="GET">
-                                    <div >
-                                        <input class="form-control " type="text" name="YTD"
-                                            placeholder=" Put Your URL here" required />
-                                        <div>
-                                            <label for="qualitySelector">Quality select</label>
-                                            <select class="form-control" name='qualitySelector' id="qualitySelector">
-                                                <option>Automatic</option>
-                                                <option>highest</option>
-                                                <option>lowest</option>
-                                                <option>low Mp3</option>
-                                                <option>high Mp3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <input class="btn btn btn-primary btn-lg" type="submit" value="Download" />
-                                    </div>
-                                </form>
-                            </div>
+    </nav>
+
+    <hr>
+
+
+    <div id="main">
+
+        <div class="main_top" id="Instruction" hidden=true>
+            <h3 class="instructionglow">Instructions</h3>
+            <p>By using this notepad you can store your notes/Images and share / access it using the URL you are
+                typeing on
+                🙃 </p>
+            <p>If you are forget things just like me you can store things to remember here and access it via
+                url. We dont see your Data as your data is Now secure with AES Encryption and Only you know the
+                password🤓<br>
+                If you find hard to remember the url🥴 you can change the word after # symbol and replace it with
+                anything🤩 i.e your URL will be "http://localhost:8080/#EasyToRememberWord"</p>
+            <br>
+            <h4 class="glow">you can use this to share your lacture notes /Images with friends or classmates(समझदार
+                को इशारा
+                काफी है🤪)</h4>
+        </div>
+        <div class="main " id="UpdateStatus" hidden=false>
+            <h3 class="instructionglow" id="UpdateStatusText"></h3>
+        </div>
+
+        <div class="main_body scrollbar scrollbar-pink bordered-pink thin">
+
+
+            <div id="wrapper">
+
+                <form class="md-form" id="paper" method="get" action="">
+                    <div class="file-field" id="imgSelector" style="display:none">
+                        <a class="btn-floating purple-gradient mt-0 float-left">
+                            <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                            <input type="file" onchange="convIMG(this)"  />
+                        </a>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="select File" >
                         </div>
                     </div>
+                    <div id="output"><textarea id='text' placeholder="Enter something To store."
+                            class="output"></textarea></div>
+
+                    <br>
+                </form>
+
+            </div>
+        </div>
+
+
+
+    </div>
+    <div id="YTD" hidden=true>
+        <div class="main_body">
+            <div id="wrapper">
+                <div class="container-fluid">
+                    <div class=" text-center">
+                        <h3>YouTube Downloader</h3>
+                    </div>
+                    <div class="row">
+
+                        <form id="downform" action="http://localhost:8080/download/" method="GET">
+
+                            <input class="form-control  " id='YTD' type="text" name="YTD"
+                                placeholder=" Put Your URL here" required />
+
+                            <label for="qualitySelector">Quality select</label>
+                            <select class="form-control" name='qualitySelector' id="qualitySelector">
+                                <option>Automatic</option>
+                                <option>highest</option>
+                                <option>lowest</option>
+                                <option>low Mp3</option>
+                                <option>high Mp3</option>
+                            </select>
+
+
+                            <input class="btn btn btn-primary btn-lg" type="submit" value="Download" />
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-         <div class="main_bottom"></div>
-        <div id="footer">
-            <p class="instructionglow">
-                Developed In India by Ashish Salve
-            </p>
-        </div>
+    </div>
+    </div>
+    </div>
+    <div class="main_bottom"></div>
+    <footer id='footer' class="footer-copyright text-center py-3 footglow fixed-bottom mt-auto py-3 bg-dark">
+        Developed In India by Ashish Salve
+    </footer>
 
     </div>
 </body>

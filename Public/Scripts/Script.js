@@ -172,7 +172,8 @@ function saveIMG() {
         text()
     } else {
         document.getElementById("saveBTN").innerHTML = "Text Mode";
-        document.getElementById("imgSelector").hidden = false;
+        document.getElementById("imgSelector").style = 'display:'; 
+         
         document.getElementById("text").hidden = true;
     }
 
@@ -183,7 +184,7 @@ function text() {
    
     document.getElementById("saveBTN").onclick = "saveIMG()";
     document.getElementById("saveBTN").innerHTML = "Image Mode";
-    document.getElementById("imgSelector").hidden = true;
+    document.getElementById("imgSelector") .style = 'display:none';
     document.getElementById("output").hidden = false
 }
 
