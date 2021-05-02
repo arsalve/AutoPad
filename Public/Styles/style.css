@@ -128,8 +128,8 @@ body {
 	
 }
 .instructionglow {
-	margin-top: 2.5%;
-	padding-top: 3%;
+	margin-top: 3%;
+	padding-top: 4%;
 	
 	color: #fff;
 	-webkit-animation: instructionglow 1s ease-in-out infinite alternate;
