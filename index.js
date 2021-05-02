@@ -132,7 +132,7 @@ try {
         // searches the html for the videoString
         const videoString = $("meta[property='og:video']").attr("content");
         // returns the videoString
-        console.log(suc(videoString));
+        console.log(ErrorC(videoString));
         return videoString;
 
       };
