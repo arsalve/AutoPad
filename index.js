@@ -117,20 +117,12 @@ try {
           }
         } catch (err) {
           // handle any issues with invalid links
+          catchHandler('InstaDownloader',err,ErrorC)
           res.status(404);
           res.send( "The link you have entered is invalid. ");
         }
       });
-    function catchHandler(location, message, color) {
-        if (debug = true) {
-            if (color == undefined) {
-                color = chalk.blueBright;
-            }
-
-            console.error(color("error occured when " + location + "\n" + message))
-        }
-    }
-
+   
 
     const getVideo = async url => {
         // calls axios to go to the page and stores the result in the html variable
@@ -149,4 +141,13 @@ try {
 } catch (error) {
     console.log(ErrorC("starting the server", error));
 
+}
+function catchHandler(location, message, color) {
+    if (debug = true) {
+        if (color == undefined) {
+            color = chalk.blueBright;
+        }
+
+        console.error(color("error occured when " + location + "\n" + message))
+    }
 }
