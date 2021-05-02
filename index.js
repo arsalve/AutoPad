@@ -105,8 +105,6 @@ try {
     app.post("/Instdownload", async (req, res) => {
       
         try {
-          // call the getVideo function, wait for videoString and store it
-          // in the videoLink variable
           const videoLink = await getVideo(req.body.url);
           // if we get a videoLink, send the videoLink back to the user
           if (videoLink !== undefined) {
@@ -142,7 +140,9 @@ try {
         // searches the html for the videoString
         const videoString = $("meta[property='og:video']").attr("content");
         // returns the videoString
+        console.log(suc(videoString));
         return videoString;
+
       };
 
 
