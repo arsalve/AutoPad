@@ -7,18 +7,29 @@
 }
 
 #footer {
-height: 5%;
+    height: 5%;
+    opacity: 90%;
+    color: #000;
 
 }
 
-
-
+#YouTube {
+    padding: 2%;
+    margin: 5% 5% 5% 10%;
+    background-color: #34363d80;
+    width: 80%;
+    color: #e84393;
+}
+#downBtn{
+	margin: 2%;
+}
 .main_bottom {
     position: sticky;
     z-index: 10;
 }
 body {
-	background: #333 url('../Img/inflicted.png') repeat;
+	background-color: #e84393;
+	background-image: linear-gradient(180deg, #000000 80%,  #e84393 90%);
 	color: #FFF;
 
 }
@@ -78,9 +89,16 @@ body {
 	filter: alpha(opacity=80);
 	opacity: 0.8;
 }
-.ytd{
+.YTD{
 	margin: 2%;
 	margin-top: 5%;
+	height: 10%;
+	position: relative;
+	width: 80%;
+}
+.InstaDownloader{
+	margin: 2%;
+	margin-top: 1%;
 	height: 10%;
 	position: relative;
 	width: 80%;
@@ -157,6 +175,16 @@ body {
   
   @media (orientation: portrait) {
 	* {
-		font-size: 1.5vh;
+		font-size: 2vh;
 	}
   }
+
+
+
+
+
+
+
+
+
+  

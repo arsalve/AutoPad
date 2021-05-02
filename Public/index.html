@@ -43,16 +43,13 @@
             data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555" aria-expanded="false"
             aria-label="Toggle navigation" style="color:#dc0066">
             <span class="navbar-toggler-icon"></span>
-            <a class="">The Autopad </a>
+         
 
         </button>
+           <h4  style="color:#dc0066" class="">The Autopad </h4>
         <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
             <ul class="navbar-nav mr-auto ">
-
-                <li class="nav-item ">
-                    <h3><a class="navbar-link" id='Download' onClick='YTD()' style="color:#dc0066">The Autopad </a></h3>
-
-                </li>
+             
               <li class="nav-item ">
                    <h4> <a class="nav-link" onClick="Update()">Save Data</a><h4>
 
@@ -69,6 +66,10 @@
                 <li class="nav-item">
                    <h4> <a class="nav-link" onClick="Clear()"> Clear Data</a><h4>
                 </li>
+                <li class="nav-item">
+                   <h4> <a  href ="./Download.html" class="nav-link"> Downloader Utilites </a><h4>
+                </li>
+               
             </ul>
 
         </div>
@@ -126,37 +127,7 @@
 
 
     </div>
-    <div id="YTD" hidden=true>
-        <div class="main_body">
-            <div id="wrapper">
-                <div class="container-fluid">
-                    <div class=" text-center">
-                        <h3>YouTube Downloader</h3>
-                    </div>
-                    <div class="row">
 
-                        <form id="downform" action="http://localhost:8080/download/" method="GET">
-
-                            <input class="form-control  " id='YTD' type="text" name="YTD"
-                                placeholder=" Put Your URL here" required />
-
-                            <label for="qualitySelector">Quality select</label>
-                            <select class="form-control" name='qualitySelector' id="qualitySelector">
-                                <option>Automatic</option>
-                                <option>highest</option>
-                                <option>lowest</option>
-                                <option>low Mp3</option>
-                                <option>high Mp3</option>
-                            </select>
-
-
-                            <input class="btn btn btn-primary btn-lg" type="submit" value="Download" />
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
     </div>
     <div class="main_bottom"></div>

@@ -1,0 +1,55 @@
+{
+  "name": "instagram-save",
+  "version": "1.3.2",
+  "description": "Downloads and saves Instagram photos and videos to your current working directory.",
+  "main": "index.js",
+  "engine-strict": true,
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "bin": {
+    "instagram-save": "bin/cli.js"
+  },
+  "preferGlobal": true,
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha test/**/*-spec.js --timeout 5000",
+    "lint": "node node_modules/eslint/bin/eslint.js index.js lib bin test",
+    "prepublish": "npm test && npm run lint"
+  },
+  "keywords": [
+    "instagram",
+    "downloader",
+    "saver",
+    "save",
+    "download",
+    "export",
+    "cli",
+    "command-line",
+    "image",
+    "photo",
+    "picture",
+    "video",
+    "media"
+  ],
+  "author": "Eric Nishio <eric@self-learner.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericnishio/instagram-save.git"
+  },
+  "dependencies": {
+    "async": "^1.5.0",
+    "cheerio": "^0.19.0",
+    "cli-color": "^1.1.0",
+    "lodash": "^3.10.1",
+    "request-promise": "^1.0.2"
+  },
+  "devDependencies": {
+    "chai": "3.4.1",
+    "chai-as-promised": "^5.1.0",
+    "eslint": "^1.9.0",
+    "mocha": "2.3.4",
+    "sinon": "1.17.2",
+    "sinon-as-promised": "^4.0.0"
+  }
+}

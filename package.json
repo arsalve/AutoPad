@@ -9,9 +9,12 @@
   "author": "Ashish Salve",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "chalk": "^3.0.0",
+    "cheerio": "^1.0.0-rc.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "instagram-save": "^1.3.2",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.14",
     "mysql": "^2.18.1",
