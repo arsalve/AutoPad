@@ -107,6 +107,7 @@ try {
         try {
           const videoLink = await getVideo(req.body.url);
           // if we get a videoLink, send the videoLink back to the user
+          console.log(videoLink)
           if (videoLink !== undefined) {
             res.status(200);
             res.send(videoLink);
