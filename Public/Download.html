@@ -41,7 +41,7 @@
     <div class="p-2 flex-fill bd-highlight" id="YTD">
         <div class="main_body">
             <div class="d-flex justify-content-center">
-                <form id="downform" action="http://localhost:8080/YTDdownload/" method="GET">
+                <form id="downform" action="https://project-notepad.herokuapp.com/YTDdownload/" method="GET">
                     <div id="YouTube" class="jumbotron jumbotron-fluid ">
                         <div class="d-flex justify-content-center">
                             <h3 style="margin: 5%;">YouTube Downloader</h3>
@@ -98,7 +98,7 @@
     </div>
 </body>
 <script>
-    //document.querySelector("#downform").action = url+"/YTDdownload";
+    document.querySelector("#downform").action = url+"/YTDdownload";
 </script>
 
 </html>
