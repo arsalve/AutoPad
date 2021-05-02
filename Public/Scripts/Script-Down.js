@@ -4,6 +4,7 @@ if (window.location.href.includes("localhost:8080")) {
 } else {
     url = "https://project-notepad.herokuapp.com";
 }
+
 // Importing 'crypto' module 
 
 function instaLoad(){
@@ -14,9 +15,7 @@ if (document.getElementById('Insta').value!="") {
         "url":document.getElementById('Insta').value
     });
 
-    var xhr = new XMLHttpRequest();
-
-  
+    var xhr = new XMLHttpRequest();  
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
             var dUrl=(this.responseText);
@@ -35,7 +34,7 @@ if (document.getElementById('Insta').value!="") {
     xhr.open("POST", url+"/Instdownload");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhr.setRequestHeader('Access-Control-Allow-Origin', url);
 
     xhr.send(data);
 

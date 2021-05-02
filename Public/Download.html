@@ -1,9 +1,6 @@
 <html>
 
 <head>
-
-
-
     <link rel="stylesheet" type="text/css" href="Styles/style.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -26,73 +23,70 @@
         gtag('js', new Date());
 
         gtag('config', 'G-4Z9B3ZFLP7');
+        var url = '';
+        if (window.location.href.includes("localhost:8080")) {
+            url = "http://localhost:8080";
+        } else {
+            url = "https://project-notepad.herokuapp.com";
+        }
     </script>
 </head>
 
 <body>
-
     <nav class="navbar navbar-dark bg-dark" style="	background-color: #e84393;
 	background-image: linear-gradient(315deg,#000000 70%,#e84393 80%); ">
         <b><a onClick="window.history.back();" id='Download' style="color:#000000">Back to Autopad </a></b>
     </nav>
-
     <hr>
-
-
-
-
-
     <div class="p-2 flex-fill bd-highlight" id="YTD">
         <div class="main_body">
-            <div class="d-flex justify-content-center" >
-              <form id="downform" action="http://localhost:8080/YTDdownload/" method="GET">
-                <div id ="YouTube"class="jumbotron jumbotron-fluid ">
-                    <div class="d-flex justify-content-center">
-                        <h3 style="margin: 5%;">YouTube Downloader</h3>
-                    </div>
-             
-                            <input class="form-control  " id='YTD' type="text" name="YTD"
-                                placeholder=" Put Your URL here" style="padding: 0%;margin-left: 10%; width: 80%;" required />
+            <div class="d-flex justify-content-center">
+                <form id="downform" action="https://project-notepad.herokuapp.com" method="GET">
+                    <div id="YouTube" class="jumbotron jumbotron-fluid ">
+                        <div class="d-flex justify-content-center">
+                            <h3 style="margin: 5%;">YouTube Downloader</h3>
+                        </div>
+                        <input class="form-control  " id='YTD' type="text" name="YTD" placeholder=" Put Your URL here"
+                            style="padding: 0%;margin-left: 10%; width: 80%;" required />
+                        <label for="qualitySelector" class="d-flex justify-content-center"
+                            style="margin: 5%;"><b>Quality select</b></label>
+                        <select class="form-control" name='qualitySelector' id="qualitySelector"
+                            style="padding: 0%;margin-left: 35%; width: 30%;">
+                            <option>Automatic</option>
+                            <option>highest</option>
+                            <option>lowest</option>
+                            <option>low Mp3</option>
+                            <option>high Mp3</option>
+                        </select>
+                        <div id="downBtn" class="d-flex justify-content-center">
+                            <input class="btn btn-outline-danger" type="submit" value="Download"
+                                style=" padding:2%; margin: 4%; width: 30%;" />
+                        </div>
+                </form>
 
-                            <label for="qualitySelector" class="d-flex justify-content-center" style="margin: 5%;" ><b>Quality select</b></label>
-                            <select class="form-control" name='qualitySelector' id="qualitySelector"  style="padding: 0%;margin-left: 35%; width: 30%;">
-                                <option>Automatic</option>
-                                <option>highest</option>
-                                <option>lowest</option>
-                                <option>low Mp3</option>
-                                <option>high Mp3</option>
-                            </select>
-                              <div id="downBtn" class="d-flex justify-content-center">
-                            <input class="btn btn-outline-danger" type="submit" value="Download" style=" padding:2%; margin: 4%; width: 30%;" />
-                            </div>
-                    </form>
-             
             </div>
         </div>
     </div>
-     <div class="p-2 flex-fill bd-highlight" id="InstaDownloader">
+    <div class="p-2 flex-fill bd-highlight" id="InstaDownloader">
         <div class="main_body">
-            <div class="d-flex justify-content-center" >
-             
-                <div id ="YouTube"class="jumbotron jumbotron-fluid ">
+            <div class="d-flex justify-content-center">
+
+                <div id="YouTube" class="jumbotron jumbotron-fluid ">
                     <div class="d-flex justify-content-center">
-                        <h3 style="margin: 5%;">Instagram  Downloader</h3>
+                        <h3 style="margin: 5%;">Instagram Downloader</h3>
                     </div>
-             
-                            <input class="form-control  " id='Insta' type="text" name="Insta"
-                                placeholder=" Put Your URL here" style="padding: 0%;margin-left: 10%; width: 80%;" required />
-                              <div id="downBtn" class="d-flex justify-content-center">
-                            <input class="btn btn-outline-danger" onClick="instaLoad()" value="Download" style=" padding:2%; margin: 4%; width: 30%;" />
-                             <button id="downloadBtn" class="btn btn-outline-danger" target="_blank" download hidden=true >Click On Find</button>
-                            </div>
-                           
-                   
-             
+
+                    <input class="form-control  " id='Insta' type="text" name="Insta" placeholder=" Put Your URL here"
+                        style="padding: 0%;margin-left: 10%; width: 80%;" required />
+                    <div id="downBtn" class="d-flex justify-content-center">
+                        <input class="btn btn-outline-danger" onClick="instaLoad()" value="Download"
+                            style=" padding:2%; margin: 4%; width: 30%;" />
+                        <button id="downloadBtn" class="btn btn-outline-danger" target="_blank" download
+                            hidden=true>Click On Find</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-
     </div>
     </div>
     </div>
@@ -103,5 +97,8 @@
 
     </div>
 </body>
+<script>
+    document.querySelector("#downform").action = url;
+</script>
 
 </html>

@@ -25,6 +25,13 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Z9B3ZFLP7"></script>
 
     <script>
+        var url = '';
+        if (window.location.href.includes("localhost:8080")) {
+            url = "http://localhost:8080";
+        } else {
+            url = "https://project-notepad.herokuapp.com";
+        }
+       
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -43,33 +50,39 @@
             data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555" aria-expanded="false"
             aria-label="Toggle navigation" style="color:#dc0066">
             <span class="navbar-toggler-icon"></span>
-         
+
 
         </button>
-           <h4  style="color:#dc0066" class="">The Autopad </h4>
+        <h4 style="color:#dc0066" class="">The Autopad </h4>
         <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
             <ul class="navbar-nav mr-auto ">
-             
-              <li class="nav-item ">
-                   <h4> <a class="nav-link" onClick="Update()">Save Data</a><h4>
+
+                <li class="nav-item ">
+                    <h4> <a class="nav-link" onClick="Update()">Save Data</a>
+                        <h4>
 
                 </li>
                 <li class="nav-item">
-                    <h4><a class="nav-link" onClick="load_text(false)">Load Data</a><h4>
+                    <h4><a class="nav-link" onClick="load_text(false)">Load Data</a>
+                        <h4>
                 </li>
                 <li class="nav-item">
-                   <h4> <a class="nav-link" onClick="donload()">Download</a><h4>
+                    <h4> <a class="nav-link" onClick="donload()">Download</a>
+                        <h4>
                 </li>
                 <li class="nav-item">
-                   <h4> <a class="nav-link" id="saveBTN" onClick="saveIMG()">Save Image</a><h4>
+                    <h4> <a class="nav-link" id="saveBTN" onClick="saveIMG()">Save Image</a>
+                        <h4>
                 </li>
                 <li class="nav-item">
-                   <h4> <a class="nav-link" onClick="Clear()"> Clear Data</a><h4>
+                    <h4> <a class="nav-link" onClick="Clear()"> Clear Data</a>
+                        <h4>
                 </li>
                 <li class="nav-item">
-                   <h4> <a  href ="./Download.html" class="nav-link"> Downloader Utilites </a><h4>
+                    <h4> <a href="./Download.html" class="nav-link"> Downloader Utilites </a>
+                        <h4>
                 </li>
-               
+
             </ul>
 
         </div>
@@ -91,10 +104,10 @@
                 If you find hard to remember the url🥴 you can change the word after # symbol and replace it with
                 anything🤩 i.e your URL will be "http://localhost:8080/#EasyToRememberWord"</p>
             <br>
-            <p >you can use this to share your lacture notes /Images with friends or classmates(समझदार
+            <p>you can use this to share your lacture notes /Images with friends or classmates(समझदार
                 को इशारा
                 काफी है🤪)</p>
-                <p class="instructionglow">Now you can Download YouTube videos form here</p>
+            <p class="instructionglow">Now you can Download YouTube videos form here</p>
         </div>
         <div class="main " id="UpdateStatus" hidden=false>
             <p class="instructionglow" id="UpdateStatusText"></p>
@@ -109,10 +122,10 @@
                     <div class="file-field" id="imgSelector" style="display:none">
                         <a class="btn-floating purple-gradient mt-0 float-left">
                             <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
-                            <input type="file" onchange="convIMG(this)"  />
+                            <input type="file" onchange="convIMG(this)" />
                         </a>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="select File" >
+                            <input class="file-path validate" type="text" placeholder="select File">
                         </div>
                     </div>
                     <div id="output"><textarea id='text' placeholder="Enter something To store."
@@ -137,5 +150,4 @@
 
     </div>
 </body>
-
 </html>
