@@ -15,8 +15,7 @@ if (document.getElementById('Insta').value!="") {
     });
 
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = false;
-   
+
   
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
@@ -77,7 +76,3 @@ function YTDDL() {
     }
 }
 
-window.addEventListener("beforeunload", function (event) {
-    Update();
-    sessionStorage.clear()
-});
