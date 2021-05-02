@@ -16,12 +16,16 @@ if (document.getElementById('Insta').value!="") {
 
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = false;
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
             var dUrl=(this.responseText);
             if (dUrl.includes(".mp4")) {
-           
+                document.querySelector("#downloadBtn").href=dUrl;
+                document.querySelector("#downloadBtn").click();
                 window.open(dUrl);
             } else {
                 console.log(this.responseText);
@@ -31,7 +35,7 @@ if (document.getElementById('Insta').value!="") {
         }
     });
 
-    xhr.open("POST", "http://localhost:8080/Instdownload");
+    xhr.open("POST", url+"/Instdownload");
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.send(data);
