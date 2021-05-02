@@ -16,10 +16,8 @@ if (document.getElementById('Insta').value!="") {
 
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = false;
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-
+   
+  
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
             var dUrl=(this.responseText);
@@ -37,6 +35,8 @@ if (document.getElementById('Insta').value!="") {
 
     xhr.open("POST", url+"/Instdownload");
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 
     xhr.send(data);
 
