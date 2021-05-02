@@ -15,18 +15,14 @@ if (document.getElementById('Insta').value!="") {
     });
 
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    xhr.withCredentials = false;
 
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
             var dUrl=(this.responseText);
             if (dUrl.includes(".mp4")) {
-                document.getElementById('Insta').disabled=true;
-                document.querySelector("#downloadBtn").href=dUrl;
-                document.querySelector("#downloadBtn").disabled=false;
-                document.querySelector("#downloadBtn").innerHTML="Download";
-
-                document.querySelector("#downloadBtn").click()
+           
+                window.open(dUrl);
             } else {
                 console.log(this.responseText);
                 alert("Unable to find Video")
