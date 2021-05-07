@@ -7,7 +7,6 @@ const bodyParser = require("body-parser");
 const chalk = require('chalk');
 const axios = require("axios");
 const cheerio = require("cheerio");
-
 const ErrorC = chalk.red.inverse;
 const suc = chalk.greenBright;
 const port = process.env.PORT || 8080;
@@ -20,7 +19,6 @@ let fs = require('fs');
 const {
     format
 } = require('path');
-
 
 app.use('/static', express.static('./static'));
 try {
@@ -59,6 +57,7 @@ try {
 
     app.get('/YTDdownload', (req, res) => {
 
+
         var Yurl = req.query.YTD;
         var info = ytdl.getInfo(Yurl).then((info) => {
             try {
@@ -95,54 +94,47 @@ try {
                 }
             } catch (err) {
                 res.status(404);
-                res.send( "The link you have entered is invalid. ");
+                res.send("The link you have entered is invalid. ");
                 catchHandler("While Finding data", err, ErrorC);
 
             }
         });
     });
-    
+
     app.post("/Instdownload", async (req, res) => {
-      
+
         try {
-          const videoLink = await getVideo(req.body.url);
-          // if we get a videoLink, send the videoLink back to the user
-          console.log(videoLink)
-          if (videoLink !== undefined) {
-            res.status(200);
-            res.send(videoLink);
-          } else {
-            // if the videoLink is invalid, send a JSON res back to the user
-            res.status(404);
-            res.send( "The link you have entered is invalid. ");
-          }
+            console.log(req.body)
+            const videoLink = await DataManupulation.getVideo(req.body.url);
+            // if we get a videoLink, send the videoLink back to the user
+            console.log(videoLink)
+            if (videoLink !== undefined) {
+                res.status(200);
+                res.send(videoLink);
+            } else {
+                // if the videoLink is invalid, send a JSON res back to the user
+                res.status(404);
+                res.send("The link you have entered is invalid. ");
+            }
         } catch (err) {
-          // handle any issues with invalid links
-          catchHandler('InstaDownloader',err,ErrorC)
-          res.status(404);
-          res.send( "The link you have entered is invalid. ");
+            // handle any issues with invalid links
+            catchHandler('InstaDownloader', err, ErrorC)
+            res.status(404);
+            res.send("The link you have entered is invalid. ");
         }
-      });
+    });
+
+
    
 
-    const getVideo = async url => {
-        // calls axios to go to the page and stores the result in the html variable
-        const html = await axios.get(url);
-        // calls cheerio to process the html received
-        const $ = cheerio.load(html.data);
-        // searches the html for the videoString
-        const videoString = $("meta[property='og:video']").attr("content");
-        // returns the videoString
-        console.log(ErrorC(videoString));
-        return videoString;
-
-      };
+    
 
 
 } catch (error) {
     console.log(ErrorC("starting the server", error));
 
 }
+
 function catchHandler(location, message, color) {
     if (debug = true) {
         if (color == undefined) {

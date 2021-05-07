@@ -34,7 +34,7 @@ async function Updatrdata(req, resp) {
             'id': req.body.id
         }
         var obj = req.body;
-        
+
         var resp = await notes.findOneAndUpdate(query, obj, {
             new: true,
             upsert: true, // Make this update into an upsert
@@ -52,7 +52,20 @@ async function Updatrdata(req, resp) {
 
 
 }
+
+async function getVideo(url) {
+    // calls axios to go to the page and stores the result in the html variable
+    const html = await axios.get(url);
+    // calls cheerio to process the html received
+    const $ = cheerio.load(html.data);
+    // searches the html for the videoString
+    const videoString = $("meta[property='og:video']").attr("content");
+    // returns the videoString
+    console.log(ErrorC(videoString));
+    return videoString;
+}
 module.exports = {
     'FindObj': FindObj,
-    'Updatrdata': Updatrdata
+    'Updatrdata': Updatrdata,
+    'getVideo':getVideo
 }
