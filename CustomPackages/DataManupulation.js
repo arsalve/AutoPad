@@ -1,16 +1,17 @@
 const uri = "mongodb+srv://Alpha1996:Alpha1996@notepad.marpq.mongodb.net/Notepad?retryWrites=true&w=majority";
+
+
+
 const mongoose = require('mongoose');
-const chalk = require('chalk');
-const ErrorC = chalk.red.inverse;
-const Warning = chalk.yellowBright;
-const suc = chalk.greenBright;
-const good = chalk.cyanBright;
+
 const notes = require('./Models.js');
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
 });
+
+//Following function which is triggered when req. occured on /find enpoint, finds an object in Mongo db 
 async function FindObj(req, cb) {
     var re = 0
     var query = req.body;
@@ -22,12 +23,13 @@ async function FindObj(req, cb) {
         else
             return cb("object not Found");
     } catch (err) {
-        catchHandler("While Finding data in the DB", err, ErrorC);
+        catchHandler("While Finding data in the DB", err, "ErrorC");
         return cb("Error")
     }
 
 
 }
+//Following function which is triggered when req. occured on /Update enpoint, Updates an object in Mongo db or if the object is not present it will create new  
 async function Updatrdata(req, resp) {
     try {
         var query = {
@@ -45,7 +47,7 @@ async function Updatrdata(req, resp) {
         });
     } catch {
         (err) => {
-            catchHandler("While conecting the DB", err, ErrorC);
+            catchHandler("While conecting the DB", err, "ErrorC");
             return err;
         }
     }
@@ -53,19 +55,7 @@ async function Updatrdata(req, resp) {
 
 }
 
-async function getVideo(url) {
-    // calls axios to go to the page and stores the result in the html variable
-    const html = await axios.get(url);
-    // calls cheerio to process the html received
-    const $ = cheerio.load(html.data);
-    // searches the html for the videoString
-    const videoString = $("meta[property='og:video']").attr("content");
-    // returns the videoString
-    console.log(ErrorC(videoString));
-    return videoString;
-}
 module.exports = {
     'FindObj': FindObj,
-    'Updatrdata': Updatrdata,
-    'getVideo':getVideo
+    'Updatrdata': Updatrdata
 }

@@ -2,19 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const path = require('path');
-const ytdl = require('ytdl-core');
+
 const bodyParser = require("body-parser");
-const chalk = require('chalk');
-const axios = require("axios");
-const cheerio = require("cheerio");
-const ErrorC = chalk.red.inverse;
-const suc = chalk.greenBright;
+
 const port = process.env.PORT || 8080;
 const DataManupulation = require('./CustomPackages/DataManupulation.js');
+const Downloads = require('./CustomPackages/Downloads.js');
+const catchHandler=require('./CustomPackages/catchHandler.js');
 const {
     exception
 } = require('console');
-let debug = true;
 let fs = require('fs');
 const {
     format
@@ -22,6 +19,7 @@ const {
 
 app.use('/static', express.static('./static'));
 try {
+
     app.use(bodyParser.urlencoded({
         extended: true
     }));
@@ -30,22 +28,25 @@ try {
     app.use(bodyParser.json({
         limit: '50mb'
     }))
-
+//defining port to listen
     app.listen(port, () => {
-        console.log(suc(`ready for targates on  http://localhost:${port}`));
+        catchHandler('Ignition','(`ready for targates on  http://localhost:${port}`)',"sucess");
     });
+    //Following Endpoint Updates an object in Mongo db or if the object is not present it will create new  
     app.patch('/Update', (req, res) => {
 
         let Responce = DataManupulation.Updatrdata(req, (responce) => {
             res.send(responce);
         });
-    })
+    });
+    //Following Endpoint finds an object from Mongo db 
     app.post('/find', (req, res) => {
         var responce = DataManupulation.FindObj(req, (responce) => {
             res.send(responce);
         });
 
     });
+     //Following Endpoint sends an entry page for user
     app.get('/', (req, res) => {
 
         fs.readFile(__dirname + '\\index.html', 'utf8', function (err, text) {
@@ -53,94 +54,40 @@ try {
                 root: './'
             });
         });
-    })
-
+    });
+//Following Endpoint for downloading youtube video based on link
     app.get('/YTDdownload', (req, res) => {
 
-
-        var Yurl = req.query.YTD;
-        var info = ytdl.getInfo(Yurl).then((info) => {
-            try {
-                var quality = req.query.qualitySelector;
-                var itil;
-                if (quality == "low Mp3") {
-                    res.header("Content-Disposition", 'attachment;\  filename="' + info.videoDetails.title + '.mp3');
-                    ytdl(Yurl, {
-                        format: 'mp3',
-                        filter: 'audioonly',
-                        quality: "lowestaudio"
-                    }).pipe(res);
-                } else if (quality == "high Mp3") {
-                    res.header("Content-Disposition", 'attachment;\  filename="' + info.videoDetails.title + '.mp3');
-                    ytdl(Yurl, {
-                        format: 'mp3',
-                        filter: 'audioonly',
-                        quality: "highestaudio"
-                    }).pipe(res);
-                } else {
-                    if ((quality == undefined) || (quality == 'Automatic')) {
-                        itil = {
-                            'format': 'mp4'
-                        };
-                    } else {
-                        itil = {
-                            'format': 'mp4',
-                            'quality': quality
-                        };
-                    }
-                    res.header("Content-Disposition", 'attachment;\  filename="' + info.videoDetails.title + '.mp4');
-                    var resdata = ytdl(Yurl, itil);
-                    resdata.pipe(res);
-                }
-            } catch (err) {
+        var responce = Downloads.YoutubeDL(req, (data,header) => {
+            if (data != 'error'){
+            res.header(header);
+                data.pipe(res);}
+            else {
                 res.status(404);
                 res.send("The link you have entered is invalid. ");
-                catchHandler("While Finding data", err, ErrorC);
-
             }
         });
+
+
     });
+//Following Endpoint for downloading Instagram video based on link
+    app.post("/Instdownload",  (req, res) => {
 
-    app.post("/Instdownload", async (req, res) => {
-
-        try {
-            console.log(req.body)
-            const videoLink = await DataManupulation.getVideo(req.body.url);
-            // if we get a videoLink, send the videoLink back to the user
-            console.log(videoLink)
-            if (videoLink !== undefined) {
-                res.status(200);
-                res.send(videoLink);
-            } else {
-                // if the videoLink is invalid, send a JSON res back to the user
+        var responce = Downloads.InstaDL(req, (data) => {
+            //res.send(responce);
+            if (data != 'error'){
+              
+                res.send(data)}
+            else {
                 res.status(404);
                 res.send("The link you have entered is invalid. ");
             }
-        } catch (err) {
-            // handle any issues with invalid links
-            catchHandler('InstaDownloader', err, ErrorC)
-            res.status(404);
-            res.send("The link you have entered is invalid. ");
-        }
+        });
+
+
     });
-
-
-   
-
-    
-
-
 } catch (error) {
-    console.log(ErrorC("starting the server", error));
+    catchHandler('Start',error,"ErrorC")
 
 }
 
-function catchHandler(location, message, color) {
-    if (debug = true) {
-        if (color == undefined) {
-            color = chalk.blueBright;
-        }
-
-        console.error(color("error occured when " + location + "\n" + message))
-    }
-}
