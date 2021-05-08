@@ -1,7 +1,6 @@
 const uri = "mongodb+srv://Alpha1996:Alpha1996@notepad.marpq.mongodb.net/Notepad?retryWrites=true&w=majority";
 
 
-
 const mongoose = require('mongoose');
 
 const notes = require('./Models.js');

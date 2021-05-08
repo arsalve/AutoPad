@@ -30,7 +30,7 @@ try {
     }))
 //defining port to listen
     app.listen(port, () => {
-        catchHandler('Ignition','(`ready for targates on  http://localhost:${port}`)',"sucess");
+        catchHandler('Ignition','ready for targates',"sucess");
     });
     //Following Endpoint Updates an object in Mongo db or if the object is not present it will create new  
     app.patch('/Update', (req, res) => {
@@ -60,7 +60,7 @@ try {
 
         var responce = Downloads.YoutubeDL(req, (data,header) => {
             if (data != 'error'){
-            res.header(header);
+            res.header("Content-Disposition",header);
                 data.pipe(res);}
             else {
                 res.status(404);
