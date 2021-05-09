@@ -7,7 +7,7 @@ if (window.location.href.includes("localhost:8080")) {
 // Importing 'crypto' module 
 
 function load_text(Inst) {
-  
+
     var Hash;
     Hash = sessionStorage.getItem('Hash');
     if (Hash == null) {
@@ -43,7 +43,7 @@ function load_text(Inst) {
                                 document.getElementById("text").value = Decry;
                                 document.getElementById("text").innerHTML = Decry;
                                 temp = document.getElementById("output").innerHTML;
-                                document.getElementById("output").innerHTML = ' <img src=" ' + Decry + '" id="ConvIMG" class="output" ></img>' + temp;
+                                document.getElementById("output").innerHTML = '<a id="imgdl" href=' + Decry + 'download> <img src=" ' + Decry + '" id="ConvIMG" class="output" ></img></a>' + temp;
                                 document.getElementById("text").hidden = true;
                             } else {
 
@@ -85,34 +85,30 @@ function donload() {
     strings = content.split(",");
     var extension, btype;
     switch (strings[0]) { //check image's extension
-        case "data:image/jpeg;base64":
-            extension = (document.location.hash).replace('#', "") + ".jpeg";
-            btype = 'image/jpeg';
-            break;
-        case "data:image/png;base64":
-            extension = (document.location.hash).replace('#', "") + ".png";
-            btype = 'image/png';
+        case "data:image":
+            document.getElementById('imgdl').click()
             break;
         default: //should write cases for more images types
             extension = (document.location.hash).replace('#', "") + ".txt";
             btype = 'text/plain';
+            // any kind of extension (.txt,.cpp,.cs,.bat)
+            var blob = new Blob([content], {
+                type: btype
+            });
+            var saver = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
+            var blobURL = saver.href = URL.createObjectURL(blob),
+                body = document.body;
+
+            saver.download = extension;
+
+            body.appendChild(saver);
+            saver.dispatchEvent(new MouseEvent("click"));
+            body.removeChild(saver);
+            URL.revokeObjectURL(blobURL);
+            document.getElementById("text").hidden = true;
             break;
     }
-    // any kind of extension (.txt,.cpp,.cs,.bat)
-    var blob = new Blob([content], {
-        type: btype
-    });
-    var saver = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
-    var blobURL = saver.href = URL.createObjectURL(blob),
-        body = document.body;
 
-    saver.download = extension;
-
-    body.appendChild(saver);
-    saver.dispatchEvent(new MouseEvent("click"));
-    body.removeChild(saver);
-    URL.revokeObjectURL(blobURL);
-    document.getElementById("text").hidden = true;
 
 }
 
@@ -166,25 +162,25 @@ setTimeout(function () {
 }, 6000);
 
 function saveIMG() {
-    
+
     if (document.getElementById("saveBTN").innerHTML == "Text Mode") {
         document.getElementById("text").hidden = false;
         text()
     } else {
         document.getElementById("saveBTN").innerHTML = "Text Mode";
-        document.getElementById("imgSelector").style = 'display:'; 
-         
+        document.getElementById("imgSelector").style = 'display:';
+
         document.getElementById("text").hidden = true;
     }
 
 }
 
 function text() {
-    
-   
+
+
     document.getElementById("saveBTN").onclick = "saveIMG()";
     document.getElementById("saveBTN").innerHTML = "Image Mode";
-    document.getElementById("imgSelector") .style = 'display:none';
+    document.getElementById("imgSelector").style = 'display:none';
     document.getElementById("output").hidden = false
 }
 
@@ -208,22 +204,25 @@ function convIMG(Img) {
     reader.readAsDataURL(file);
 
 }
+
 function Clear() {
-    var value=prompt("Did You Really want to clear the data Yes/No",'Yes')
-    if(value=='Yes'){
-        document.getElementById("text").innerHTML="";
-        document.getElementById("text").value="";
-        document.getElementById("ConvIMG").src ="";
-        document.getElementById("ConvIMG").hidden=true;
+    var value = prompt("Did You Really want to clear the data Yes/No", 'Yes')
+    if (value == 'Yes') {
+        document.getElementById("text").innerHTML = "";
+        document.getElementById("text").value = "";
+        document.getElementById("ConvIMG").src = "";
+        document.getElementById("ConvIMG").hidden = true;
         Update();
     }
-    
+
 }
+
 function copyURL() {
     var copyText = window.location.href;
     window.prompt("Copy to clipboard: Ctrl+C, Enter", copyText);
 }
-function saveText(){
+
+function saveText() {
     document.getElementById("Download").onclick = "YTD()";
     document.getElementById("Download").innerHTML = "Autopad";
     document.getElementById("YTD").hidden = true;
@@ -231,25 +230,26 @@ function saveText(){
     window.location.hostname
 }
 
-function YTD(){
-    
-    document.getElementById("downform").action=url + "/YTDdownload";
+function YTD() {
+
+    document.getElementById("downform").action = url + "/YTDdownload";
     document.getElementById("Download").onclick = "saveText()";
     document.getElementById("Download").innerHTML = "Back to Autopad";
-    
+
     document.getElementById("YTD").hidden = false;
     document.getElementById("main").hidden = true
-    
+
 }
+
 function YTDDL() {
-    if(document.getElementById("YTDURL").value!=""||document.getElementById("YTDURL").value!=undefined||document.getElementById("YTDURL").value!=null){
-    var xhr = new XMLHttpRequest();
+    if (document.getElementById("YTDURL").value != "" || document.getElementById("YTDURL").value != undefined || document.getElementById("YTDURL").value != null) {
+        var xhr = new XMLHttpRequest();
         xhr.open("POST", url + "/YTDdownload");
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-        var data={
-            'url':document.getElementById("YTDURL").value
+        var data = {
+            'url': document.getElementById("YTDURL").value
         };
         xhr.send(JSON.stringify(data));
         xhr.addEventListener("readystatechange", function () {
@@ -259,6 +259,7 @@ function YTDDL() {
         });
     }
 }
+
 function stringToHash(string) {
 
     var hash = 0;
