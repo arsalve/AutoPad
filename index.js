@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 
 const port = process.env.PORT || 8080;
 const DataManupulation = require('./CustomPackages/DataManupulation.js');
-const Downloads = require('./CustomPackages/Downloads.js');
+const Downloads = require('./CustomPackages/Downloads.js').default;
 const catchHandler=require('./CustomPackages/catchHandler.js');
 const {
     exception
