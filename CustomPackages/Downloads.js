@@ -66,8 +66,10 @@ async function InstaDL(req, cb) {
     try {
         const html = await get(query);
         const $ = await load(html.data);
+        console.log($)
         const videoLink = await $("meta[property='og:video']").attr("content");
         // if we get a videoLink, send the videoLink back to the user
+        console.log(videoLink)
         if (videoLink !== undefined) {
             cb(videoLink);
         } else {
