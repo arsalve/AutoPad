@@ -64,7 +64,7 @@ async function InstaDL(req, cb) {
     var re = 0
     var query = req.body.url;
     try {
-        const html = await axios.get(url);
+        const html = await axios.get(query);
         const $ = await cheerio.load(html.data);
         const videoLink = await $("meta[property='og:video']").attr("content");
         // if we get a videoLink, send the videoLink back to the user
