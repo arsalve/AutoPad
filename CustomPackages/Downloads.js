@@ -1,14 +1,14 @@
-import { get } from "axios";
-import { load } from "cheerio";
-import ytdl, { getInfo } from 'ytdl-core';
-import catchHandler from './catchHandler.js';
+const axios = require("axios");
+const cheerio = require("cheerio");
+const ytdl = require('ytdl-core');
+const catchHandler = require('./catchHandler.js');
 
 //Following function downloads Youtube videos using YTDL core
 function YoutubeDL(req, cb) {
 
     var Yurl = req.query.YTD;
     try {
-        var info = getInfo(Yurl).then((info) => {
+        var info = ytdl.getInfo(Yurl).then((info) => {
             try {
                 var quality = req.query.qualitySelector;
                 var itil;
@@ -64,12 +64,13 @@ async function InstaDL(req, cb) {
     var re = 0
     var query = req.body.url;
     try {
-        const html = await get(query);
-        const $ = await load(html.data);
-        console.log($)
+        const html = await axios.get(query);
+        catchHandler('Cherio',html,"good")
+        const $ = await cheerio.load(html.data);
+        catchHandler('Cherio',$,"good")
         const videoLink = await $("meta[property='og:video']").attr("content");
+        catchHandler('videoLink',videoLink,"good")
         // if we get a videoLink, send the videoLink back to the user
-        console.log(videoLink)
         if (videoLink !== undefined) {
             cb(videoLink);
         } else {
@@ -82,7 +83,7 @@ async function InstaDL(req, cb) {
         return cb("Error")
     }
 }
-export default {
+module.exports = {
 
     'YoutubeDL': YoutubeDL,
     'InstaDL': InstaDL
