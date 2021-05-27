@@ -12,22 +12,22 @@ function YoutubeDL(req, cb) {
             try {
                 var quality = req.query.qualitySelector;
                 var itil;
-                if (quality == "low Mp3") {
-                    header =  'attachment;\  filename="' + info.videoDetails.title + '.mp3';
+                if (quality == "low-mp3") {
+                    header = 'attachment;\  filename="' + info.videoDetails.title + '.mp3';
 
-                    ytdl(Yurl, {
+                    itil = {
                         format: 'mp3',
                         filter: 'audioonly',
                         quality: "lowestaudio"
-                    }).pipe(res);
-                } else if (quality == "high Mp3") {
-                    header =  'attachment;\  filename="' + info.videoDetails.title + '.mp3';
+                    };
+                } else if (quality == "high-mp3") {
+                    header = 'attachment;\  filename="' + info.videoDetails.title + '.mp3';
 
-                    ytdl(Yurl, {
+                    itil = {
                         format: 'mp3',
                         filter: 'audioonly',
                         quality: "highestaudio"
-                    }).pipe(res);
+                    };
                 } else {
                     if ((quality == undefined) || (quality == 'Automatic')) {
                         itil = {
@@ -39,13 +39,14 @@ function YoutubeDL(req, cb) {
                             'quality': quality
                         };
                     }
-                    header =  'attachment;\  filename="' + info.videoDetails.title + '.mp4';
+                    header = 'attachment;\  filename="' + info.videoDetails.title + '.mp4';
+                }
                     var resdata = ytdl(Yurl, itil);
 
                     return cb(resdata, header);
 
                 }
-            } catch (err) {
+             catch (err) {
                 catchHandler("While Finding data", err, "ErrorC");
                 return cb("Error");
 
@@ -65,11 +66,11 @@ async function InstaDL(req, cb) {
     var query = req.body.url;
     try {
         const html = await axios.get(query);
-        catchHandler('Cherio',html,"good")
+        catchHandler('Cherio', html, "good")
         const $ = await cheerio.load(html.data);
-        catchHandler('Cherio',$,"good")
+        catchHandler('Cherio', $, "good")
         const videoLink = await $("meta[property='og:video']").attr("content");
-        catchHandler('videoLink',videoLink,"good")
+        catchHandler('videoLink', videoLink, "good")
         // if we get a videoLink, send the videoLink back to the user
         if (videoLink !== undefined) {
             cb(videoLink);
