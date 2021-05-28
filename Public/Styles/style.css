@@ -146,7 +146,6 @@ body {
 	-moz-animation: instructionglow 1s ease-in-out infinite alternate;
 	animation: instructionglow 1s ease-in-out infinite alternate;
 }
-
 @-webkit-keyframes instructionglow {
 	from {
 		text-shadow: 0 0 5px #fff, 0 0 20px #fff, 0 0 30px #9d00e6, 0 0 40px #9d00e6, 0 0 50px #9d00e6, 0 0 60px #9d00e6, 0 0 70px #9d00e6;
