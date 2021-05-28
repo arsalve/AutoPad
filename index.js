@@ -72,19 +72,15 @@ try {
     });
 //Following Endpoint for downloading Instagram video based on link
     app.post("/Instdownload",  (req, res) => {
-
         var responce = Downloads.InstaDL(req, (data) => {
             //res.send(responce);
             if (data != 'error'){
-              
                 res.send(data)}
             else {
                 res.status(404);
                 res.send("The link you have entered is invalid. ");
             }
         });
-
-
     });
 } catch (error) {
     catchHandler('Start',error,"ErrorC")
