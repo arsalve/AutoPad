@@ -1,7 +1,11 @@
 
 const ytdl = require('ytdl-core');
 const catchHandler = require('./catchHandler.js');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra')
+
+// add stealth plugin and use defaults (all evasion techniques)
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+puppeteer.use(StealthPlugin())
 
 
 
@@ -70,7 +74,7 @@ async function InstaDL(req, cb) {
 
         var retURL;
         puppeteer.launch({
-            headless: false
+            headless: true
         }).then(async browser => {
 
             const page = await browser.newPage();
@@ -80,17 +84,21 @@ async function InstaDL(req, cb) {
             });
             try {
                 retURL = await page.evaluate('document.querySelectorAll("meta[property=\'og:video\']")[0].content');
+                await browser.close();
                 if(retURL !== undefined) {
+                    
                      return cb(retURL);
                 } else {
                     // if the videoLink is invalid, send a JSON res back to the user
                     return cb('Error');
                 }
+
             } catch (err) {
+                await browser.close();
                 catchHandler("While Finding ig data", err, "ErrorC");
                 return cb("Error")
             }
-            await browser.close();
+           
         });
     } catch (err) {
         catchHandler("While Instagram data in the page", err, "ErrorC");
