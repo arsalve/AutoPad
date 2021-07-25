@@ -89,15 +89,15 @@ async function InstaDL(req, cb) {
                                 file,
                                 video_link
                             };
-                            console.log(retURL);
+                            console.log(retURL); return cb(retURL.video_link)
                         } else {
                             return cb({
                                 'message': 'Error, Unable to load webpage'
                             })
                         }
-                    }).then(() => {
-                        return cb(retURL.video_link)
-                    });
+                    })
+                       
+                   
                 
 
 
