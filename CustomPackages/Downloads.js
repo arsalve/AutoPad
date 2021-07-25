@@ -1,4 +1,3 @@
-
 const ytdl = require('ytdl-core');
 const catchHandler = require('./catchHandler.js');
 
@@ -64,40 +63,53 @@ function YoutubeDL(req, cb) {
 
 //Following function fetches the URL from instagram and sends the link as responce
 
- async function InstaDL(req, cb) {
+async function InstaDL(req, cb) {
     var re = 0
     var video_url = req.body.url;
     try {
 
         var retURL;
-        if(video_url !== undefined){
+        if (video_url !== undefined) {
 
-            if(video_url.substring(0,8) === 'https://' || video_url.substring(0,7) === 'http://' 
-                    || video_url.substring(0,21) === 'https://www.instagram' || video_url.substring(0,20) === 'http://www.instagram.com'){
-    
-                 request(video_url, (error, response, html) => {
-                    let $ = cheerio.load(html);
-                    if(!error){[
-                        function(){console.log('Insta_grab : '+video_url+' : Loaded')}(), 
-                        function(){
-                        //basic data from the meta tags
-                        let video_link =  $('meta[property="og:video"]').attr('content');
-                        let file = $('meta[property="og:type"]').attr('content');
-                        let url = $('meta[property="og:url"]').attr('content');
-                        let title = $('meta[property="og:title"]').attr('content');
-                        retURL={ title, url, file, video_link};
-                        console.log(retURL);}(),
-                        function(){return cb(retURL.video_link);}()
-                        
-                    ];}else{
-                        cb({ 'message' : 'Error, Unable to load webpage'});
-                   }
+            if (video_url.substring(0, 8) === 'https://' || video_url.substring(0, 7) === 'http://' ||
+                video_url.substring(0, 21) === 'https://www.instagram' || video_url.substring(0, 20) === 'http://www.instagram.com') {
+
+                request(video_url, (error, response, html) => {
+                    let $ = cheerio.load(html)
+                        if (!error) {
+                            console.log('Insta_grab : ' + video_url + ' : Loaded')
+                            //basic data from the meta tags
+                            let video_link = $('meta[property="og:video"]').attr('content');
+                            let file = $('meta[property="og:type"]').attr('content');
+                            let url = $('meta[property="og:url"]').attr('content');
+                            let title = $('meta[property="og:title"]').attr('content');
+                            retURL = {
+                                title,
+                                url,
+                                file,
+                                video_link
+                            };
+                            console.log(retURL);
+                        } else {
+                            return cb({
+                                'message': 'Error, Unable to load webpage'
+                            })
+                        }
+                    }).then(() => {
+                        return cb(retURL.video_link)
+                    });
+                
+
+
+            } else {
+                return cb({
+                    'message': 'Invalid URL'
                 });
-            }else{
-                cb({ 'message' : 'Invalid URL'});
             }
-        }else{
-            cb({ 'message' : 'Provided invalid URL'});
+        } else {
+            return cb({
+                'message': 'Provided invalid URL'
+            });
         }
         // puppeteer.launch({
         //     headless: false
@@ -112,7 +124,7 @@ function YoutubeDL(req, cb) {
         //         retURL =  page.evaluate('document.querySelectorAll("meta[property=\'og:video\']")[0].content');
         //          browser.close();
         //         if(retURL !== undefined) {
-                    
+
         //              return cb(retURL);
         //         } else {
         //             // if the videoLink is invalid, send a JSON res back to the user
@@ -124,7 +136,7 @@ function YoutubeDL(req, cb) {
         //         catchHandler("While Finding ig data", err, "ErrorC");
         //         return cb("Error")
         //     }
-           
+
         // });
     } catch (err) {
         catchHandler("While Instagram data in the page", err, "ErrorC");
@@ -134,4 +146,5 @@ function YoutubeDL(req, cb) {
 module.exports = {
 
     'YoutubeDL': YoutubeDL,
-    'InstaDL': InstaDL}
+    'InstaDL': InstaDL
+}
