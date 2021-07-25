@@ -86,6 +86,7 @@ async function InstaDL(req, cb) {
                         let url = $('meta[property="og:url"]').attr('content');
                         let title = $('meta[property="og:title"]').attr('content');
                         var a={ title, url, file, video_link};
+                        console.log(a)
                         return cb(video_link);
                         
                     }else{
