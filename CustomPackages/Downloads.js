@@ -64,7 +64,7 @@ function YoutubeDL(req, cb) {
 
 //Following function fetches the URL from instagram and sends the link as responce
 
- function InstaDL(req, cb) {
+ async function InstaDL(req, cb) {
     var re = 0
     var video_url = req.body.url;
     try {
@@ -76,22 +76,22 @@ function YoutubeDL(req, cb) {
                     || video_url.substring(0,21) === 'https://www.instagram' || video_url.substring(0,20) === 'http://www.instagram.com'){
     
                  request(video_url, (error, response, html) => {
-                    if(!error){
-                        console.log('Insta_grab : '+video_url+' : Loaded');
-                        let $ = cheerio.load(html);
-    
+                    let $ = cheerio.load(html);
+                    if(!error){[
+                        function(){console.log('Insta_grab : '+video_url+' : Loaded')}(), 
+                        function(){
                         //basic data from the meta tags
                         let video_link =  $('meta[property="og:video"]').attr('content');
                         let file = $('meta[property="og:type"]').attr('content');
                         let url = $('meta[property="og:url"]').attr('content');
                         let title = $('meta[property="og:title"]').attr('content');
-                        var a={ title, url, file, video_link};
-                        console.log(a)
-                        return cb(video_link);
+                        retURL={ title, url, file, video_link};
+                        console.log(retURL);}(),
+                        function(){return cb(retURL.video_link);}()
                         
-                    }else{
+                    ];}else{
                         cb({ 'message' : 'Error, Unable to load webpage'});
-                    }
+                   }
                 });
             }else{
                 cb({ 'message' : 'Invalid URL'});
