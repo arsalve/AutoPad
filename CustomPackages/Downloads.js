@@ -1,14 +1,11 @@
 
 const ytdl = require('ytdl-core');
 const catchHandler = require('./catchHandler.js');
-const puppeteer = require('puppeteer-extra')
+
 
 // add stealth plugin and use defaults (all evasion techniques)
-const StealthPlugin = require('puppeteer-extra-plugin-stealth')
-puppeteer.use(StealthPlugin())
-
-
-
+const cheerio = require('cheerio');
+const request = require('request');
 //Following function downloads Youtube videos using YTDL core
 function YoutubeDL(req, cb) {
 
@@ -69,37 +66,65 @@ function YoutubeDL(req, cb) {
 
 async function InstaDL(req, cb) {
     var re = 0
-    var query = req.body.url;
+    var video_url = req.body.url;
     try {
 
         var retURL;
-        puppeteer.launch({
-            headless: true
-        }).then(async browser => {
+        if(video_url !== undefined){
 
-            const page = await browser.newPage();
-            await page.goto(query, {
-                timeout: 15000,
-                waitUntil: 'domcontentloaded'
-            });
-            try {
-                retURL = await page.evaluate('document.querySelectorAll("meta[property=\'og:video\']")[0].content');
-                await browser.close();
-                if(retURL !== undefined) {
-                    
-                     return cb(retURL);
-                } else {
-                    // if the videoLink is invalid, send a JSON res back to the user
-                    return cb('Error');
-                }
-
-            } catch (err) {
-                await browser.close();
-                catchHandler("While Finding ig data", err, "ErrorC");
-                return cb("Error")
+            if(video_url.substring(0,8) === 'https://' || video_url.substring(0,7) === 'http://' 
+                    || video_url.substring(0,21) === 'https://www.instagram' || video_url.substring(0,20) === 'http://www.instagram.com'){
+    
+                request(video_url, (error, response, html) => {
+                    if(!error){
+                        console.log('Insta_grab : '+video_url+' : Loaded');
+                        let $ = cheerio.load(html);
+    
+                        //basic data from the meta tags
+                        let video_link = $('meta[property="og:video"]').attr('content');
+                        let file = $('meta[property="og:type"]').attr('content');
+                        let url = $('meta[property="og:url"]').attr('content');
+                        let title = $('meta[property="og:title"]').attr('content');
+                        var a={ title, url, file, video_link};
+                        return cb(video_link);
+                        
+                    }else{
+                        res.status(400).json({ 'message' : 'Error, Unable to load webpage'});
+                    }
+                });
+            }else{
+                res.status(201).json({ 'message' : 'Invalid URL'});
             }
+        }else{
+            res.status(400).json({ 'message' : 'Provided invalid URL'});
+        }
+        // puppeteer.launch({
+        //     headless: false
+        // }).then( browser => {
+
+        //     const page =  browser.newPage();
+        //      page.goto(query, {
+        //         timeout: 15000,
+        //         waitUntil: 'domcontentloaded'
+        //     });
+        //     try {
+        //         retURL =  page.evaluate('document.querySelectorAll("meta[property=\'og:video\']")[0].content');
+        //          browser.close();
+        //         if(retURL !== undefined) {
+                    
+        //              return cb(retURL);
+        //         } else {
+        //             // if the videoLink is invalid, send a JSON res back to the user
+        //             return cb('Error');
+        //         }
+
+        //     } catch (err) {
+        //          browser.close();
+        //         catchHandler("While Finding ig data", err, "ErrorC");
+        //         return cb("Error")
+        //     }
            
-        });
+        // });
     } catch (err) {
         catchHandler("While Instagram data in the page", err, "ErrorC");
         return cb("Error")
