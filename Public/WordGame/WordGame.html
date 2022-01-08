@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<head>
+    <title>
+        Word Game
+    </title>
+    
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src='../Scripts/Script.js'></script>
+    <title>The Autopad</title>
+    <link rel="icon" href="../Img/Title.png" type="image/icon type">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Z9B3ZFLP7"></script>
+
+    <script>
+        var url = '';
+        if (window.location.href.includes("localhost:8080")) {
+            url = "http://localhost:8080";
+        } else {
+            url = "https://project-notepad.herokuapp.com";
+        }
+       
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-4Z9B3ZFLP7');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="./game.js"></script>
+
+    <style>
+        .ans {
+    color: red;
+    float: left;
+    margin-left: 0%;
+    margin-bottom: 20px;
+    font-size: 24px;
+    background: black;
+    width: 100%;
+}
+
+
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+        <button class="navbar-toggler text-end navbar-right"" type=" button" data-toggle="collapse"
+            data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555" aria-expanded="false"
+            aria-label="Toggle navigation" style="color:#dc0066">
+            <span class="navbar-toggler-icon"></span>
+
+
+        </button>
+        <h4 style="color:#dc0066" class=""> <a href="../index.html" class="nav-link">The Autopad </a></h4>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto ">
+                <li class="nav-item">
+                    <h4> <a href="./Download.html" class="nav-link"> Downloader Utilites </a>
+                        <h4>
+                </li>
+                <li class="nav-item">
+                    <h4> <a href="./WordGame.html" class="nav-link"> Word Game </a>
+                        <h4>
+                </li>
+
+            </ul>
+
+        </div>
+    </nav>
+
+    <hr>
+    <div id="0">
+    <div class="col-xs-8 col-xs-offset-5" style="padding:2%;">
+        <button type="button" id="pla" class="btn" onclick="start()">Play</button>
+    </div>
+
+
+
+    <div id="main" class="container" hidden=true>
+
+
+        <span class="row col-xs-12">
+            <div class="col-xs-1 pan1" id="pa">
+                Timer
+            </div>
+            <div class="col-xs-1 pan1" id="hint">
+                Word:
+            </div>
+            <div class="col-xs-2 pan1" id="scoreDisplay">
+                Score:
+            </div>
+            <div class="col-xs-1 pan1" id="playe">
+                Player Name
+            </div>
+        </span>
+
+        <div id="D_bg" class="col-xs-10 col-xs-offset-1 row">
+          
+                <input class="panel-body ans" id="word" disabled></input>
+           
+            <hr>
+            <div class="row col-xs-12" style="text-align: center;">
+                <div id="key">
+                </div>
+            </div>
+            
+                <div>&nbsp</div>
+                <div class="col-xs-8 col-xs-offset-5 row" style="text-align: center;">
+                    <button width="2%" id="submit" onclick="submitWord()">
+                        Submit
+                    </button>
+
+                    <button width="2%" id="skip" onclick="skipWord()">
+                        Skip
+                    </button>
+                </div>
+            </div>
+                <div  class="container" >
+                    <div id="123" class="col-xs-8 col-xs-offset-2 row row">
+                       
+                            <img height=10% width=120% id= "ingame" src="">
+                       
+                    </div>
+                   
+               
+                <div class="pan3 row" id="highscorer">
+                    <hr>
+                    <hr>
+                    Old Results are shown Bellow
+                </div>
+              
+                    <hr>
+               
+                <div class="row pan3" id="Privious">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="pause" class="container" hidden=true>
+        <div id="D_bg" class="col-xs-10 col-xs-offset-1 row">
+           
+                <div class="tenor-gif-embed" data-postid="15639646" data-share-method="host" data-width="100%"
+                    data-aspect-ratio="2.128205128205128"><a
+                        href="https://tenor.com/view/golmaal-bollywood-golmaal3-johnny-lever-mein-nahi-dikhaunga-gif-15639646">Golmaal
+                        Bollywood GIF</a> from <a href="https://tenor.com/search/golmaal-gifs">Golmaal GIFs</a></div>
+                <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+           
+        </div>
+    </div>
+    <div id="landing" class="container">
+        <div id="D_bg" class="col-xs-10 col-xs-offset-1 row">
+           
+                <div class="tenor-gif-embed" data-postid="17854301" data-share-method="host" data-width="100%"
+                    data-aspect-ratio="2.3714285714285714"><a
+                        href="https://tenor.com/view/vasooli-golmaal3-abbey-jaldi-bol-kal-subah-panvel-nikalna-hai-mukesh-tiwari-gif-17854301">Vasooli
+                        Golmaal3 GIF</a> from <a href="https://tenor.com/search/vasooli-gifs">Vasooli GIFs</a></div>
+                <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+           
+        </div>
+    </div>
+    <div id="playe" class="container" hidden=true>
+        <div id="D_bg" class="col-xs-10 col-xs-offset-1 row">
+           
+                <div class="tenor-gif-embed" data-postid="15639646" data-share-method="host" data-width="100%"
+                    data-aspect-ratio="2.128205128205128"><a
+                        href="https://tenor.com/view/golmaal-bollywood-golmaal3-johnny-lever-mein-nahi-dikhaunga-gif-15639646">Golmaal
+                        Bollywood GIF</a> from <a href="https://tenor.com/search/golmaal-gifs">Golmaal GIFs</a></div>
+                <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+            </div>
+        
+    </div>
+    <div id="mot" class="container" hidden=true>
+        <div id="D_bg" class="col-xs-10 col-xs-offset-1 row">
+          
+                <div class="tenor-gif-embed" data-postid="12543738" data-share-method="host" data-width="100%"
+                    data-aspect-ratio="2.376237623762376"><a
+                        href="https://tenor.com/view/bahubali2-yes-hunk-powder-gif-12543738">Bahubali2 Yes GIF</a> from
+                    <a href="https://tenor.com/search/bahubali2-gifs">Bahubali2 GIFs</a></div>
+                <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+            <h2>All The Best and Jai Mahishmatiiii</h2>
+        </div>
+    </div>
+
+   
+
+    <div class="login-dark" id="info" hidden=true>
+        <form>
+            <h2 class="sr-only">Please Fill out Details</h2>
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+            <div class="form-group"><input class="form-control" type="name" id="name" placeholder="Enter your name" required></div>
+            <div class="form-group"><input class="form-control" type="email" id="mail" placeholder="E-mail" value="not Provided">
+            </div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit"
+                    onclick="start()">Submit</button></div>
+        </form>
+    </div>
+
+</div>
+    <script>
+        //printing high score
+        function highScorePrint() {
+
+             try {
+               var scorePrint= JSON.parse(localStorage[localStorage.PlayerName])
+               var prviousstring = 'Privious Results:-</br> ';
+                            for (var i = 0; i < scorePrint.length; i++) {
+                                
+                                prviousstring = scorePrint[i].name + " - >  " + scorePrint[i].score;
+                            }
+                            document.getElementById("Privious").innerHTML = prviousstring;
+            //     $.ajax({
+            //         type: "GET",
+            //         url: "/data.php?q=give",
+            //         dataType: "text",
+            //         success: function (response) {
+            //             localStorage.setItem("highscore", response);
+            //             var toper = JSON.parse(localStorage.getItem("highscore"));
+            //             document.getElementById("highscorer").innerHTML = "high score holder is " +
+            //                 toper
+            //                 .name +
+            //                 " with score of " + toper.score + " Points";
+            //             try {
+            //                 var PlayerName = localStorage.getItem("PlayerName");
+            //                 var PriviousGame = JSON.parse(localStorage.getItem(PlayerName));
+            //                 var prviousstring = 'Privious Results:-';
+            //                 for (var i = 0; i < PriviousGame.length; i++) {
+            //                     var j = i + 1;
+            //                     prviousstring = prviousstring + "<br>" + j + " - " + JSON.stringify(
+            //                         PriviousGame[i]);
+            //                 }
+            //                 document.getElementById("Privious").innerHTML = prviousstring;
+            //             } catch (r) {
+            //                 document.getElementById("Privious").innerHTML = "First Game";
+            //             }
+            //         }
+            //     });
+
+            } catch (e) {
+                document.getElementById("highscorer").innerHTML = "Failed to load";
+            }
+
+        }
+        highScorePrint();
+    </script>
+</body>
+
+</html>
