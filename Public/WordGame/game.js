@@ -167,7 +167,7 @@ function play() {
 	document.getElementById("ingame").hidden = false;
 	try {
 
-		if (playerName == null) {
+		if (playerName == null||playerName=="") {
 			playerName = prompt("Enter Player Name", "");
 			localStorage.setItem('PlayerName', playerName);
 		}
