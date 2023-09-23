@@ -118,40 +118,28 @@
                 <input class="panel-body ans" id="word" disabled></input>
            
             <hr>
-            <div id="key" class="row col-xs-12" style="text-align: center;">
-               
+            <div id="key" class="justify-content-center align-items-center" style="text-align: center;">
             </div>
             
                 <div>&nbsp</div>
-                <div class="col-xs-8 col-xs-offset-5 row" style="text-align: center;">
-                    <button width="2%" id="submit" onclick="submitWord()">
+                <div class="col-xs-8 col-xs-offset-2 justify-content-center align-items-center row" style="text-align: center;">
+                    <button class="btn-Back" width="2%" id="submit" onclick="submitWord()">
                         Submit
                     </button>
-
-                    <button width="2%" id="skip" onclick="skipWord()">
+                    <div>&nbsp</div>
+                    <button class="btn-Back" width="2%" id="skip" onclick="skipWord()">
                         Skip
                     </button>
                 </div>
             </div>
                 <div  class="container" >
-                    <div id="123" class="col-xs-8  row">
+                    <div id="123" class="col-xs-8 col-xs-offset-2 justify-content-center align-items-center row">
                        
                             <img height=10% width=120% id= "ingame" src="">
                        
                     </div>  
                 </br>
-               
-                <div class="pan3 row" id="highscorer">
-                    <hr>
-                    <hr>
-                    Old Results are shown Bellow
-                </div>
-
-                    <hr>
-               
-                <div class="row pan3" id="Privious">
-
-                </div>
+                
             </div>
 
         </div>
@@ -164,6 +152,17 @@
                         href="https://tenor.com/view/golmaal-bollywood-golmaal3-johnny-lever-mein-nahi-dikhaunga-gif-15639646">Golmaal
                         Bollywood GIF</a> from <a href="https://tenor.com/search/golmaal-gifs">Golmaal GIFs</a></div>
                 <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+           
+        </div>
+    </div>
+    <div id="HighScorerAlert" class="container" hidden=true>
+        <div id="D_bg" class="col-xs-10 col-xs-offset-1 row">
+           
+            <div class="tenor-gif-embed" data-postid="9430579945612104288" 
+            data-share-method="host" data-aspect-ratio="1.53846" data-width="100%"><a 
+            href="https://tenor.com/view/bollywood2-suniel-shetty-akshay-kumar-rimi-sen-bipasha-basu-gif-9430579945612104288">Bollywood2.Gif GIF</a>from 
+            <a href="https://tenor.com/search/bollywood2-gifs">Bollywood2 GIFs</a></div> 
+            <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
            
         </div>
     </div>
@@ -200,20 +199,19 @@
             <h2>All The Best and Jai Mahishmatiiii</h2>
         </div>
     </div>
-
    
 
-    <div class="login-dark" id="info" hidden=true>
-        <form>
-            <h2 class="sr-only">Please Fill out Details</h2>
-            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
-            <div class="form-group"><input class="form-control" type="name" id="name" placeholder="Enter your name" required></div>
-            <div class="form-group"><input class="form-control" type="email" id="mail" placeholder="E-mail" value="not Provided">
-            </div>
-            <div class="form-group"><button class="btn btn-primary btn-block" type="submit"
-                    onclick="start()">Submit</button></div>
-        </form>
-    </div>
+</div>
+<hr>
+<p class= "pan3" >Current HighScorer is</p>
+<div class="col-xs-8 col-xs-offset-2 justify-content-center align-items-center row pan2 " id="highscorer">   
+</div>
+<hr>
+<div class="col-xs-8 col-xs-offset-2 justify-content-center align-items-center rowpan2 " id="info">
+
+</div>
+<hr>
+<div class="col-xs-8 col-xs-offset-2 justify-content-center align-items-center row pan2" id="Privious">
 
 </div>
     <script>
@@ -221,47 +219,23 @@
         function highScorePrint() {
 
              try {
-               var scorePrint= JSON.parse(localStorage[localStorage.PlayerName])
+               var scorePrint= getHS();
                var prviousstring = 'Privious Results:-</br> ';
                             for (var i = 0; i < scorePrint.length; i++) {
                                 
                                 prviousstring = scorePrint[i].name + " - >  " + scorePrint[i].score;
                             }
                             document.getElementById("Privious").innerHTML = prviousstring;
-            //     $.ajax({
-            //         type: "GET",
-            //         url: "/data.php?q=give",
-            //         dataType: "text",
-            //         success: function (response) {
-            //             localStorage.setItem("highscore", response);
-            //             var toper = JSON.parse(localStorage.getItem("highscore"));
-            //             document.getElementById("highscorer").innerHTML = "high score holder is " +
-            //                 toper
-            //                 .name +
-            //                 " with score of " + toper.score + " Points";
-            //             try {
-            //                 var PlayerName = localStorage.getItem("PlayerName");
-            //                 var PriviousGame = JSON.parse(localStorage.getItem(PlayerName));
-            //                 var prviousstring = 'Privious Results:-';
-            //                 for (var i = 0; i < PriviousGame.length; i++) {
-            //                     var j = i + 1;
-            //                     prviousstring = prviousstring + "<br>" + j + " - " + JSON.stringify(
-            //                         PriviousGame[i]);
-            //                 }
-            //                 document.getElementById("Privious").innerHTML = prviousstring;
-            //             } catch (r) {
-            //                 document.getElementById("Privious").innerHTML = "First Game";
-            //             }
-            //         }
-            //     });
 
             } catch (e) {
                 document.getElementById("highscorer").innerHTML = "Failed to load";
             }
 
         }
-        highScorePrint();
+        addEventListener("DOMContentLoaded",  highScorePrint);
+       
     </script>
+    
 </body>
 
 </html>

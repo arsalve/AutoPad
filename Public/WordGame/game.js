@@ -6,6 +6,12 @@ function player(name, failed, score, right, lifeT, gameNo) {
 	this.lifetimeCounter = lifeT;
 	this.score = sc;
 }
+var url = '';
+if (window.location.href.includes("localhost:8080")) {
+	url = "http://localhost:8080";
+} else {
+	url = "https://autopad.onrender.com";
+}
 var words = [];
 var wordsHint = [];
 var failed = [];
@@ -14,7 +20,7 @@ var skiped = [];
 var playArray = [];
 var playhint = [];
 var score = 0;
-var life = 20;
+var life = 200;
 var cou, sc = 10;
 var lifetime = 0;
 var lifetimeCounter = -life;
@@ -90,7 +96,7 @@ function buttons() {
 	}
 	temp = document.getElementById("key").innerHTML;
 	document.getElementById("key").innerHTML = temp + "<button id = 'backspace' class='btn-Back' onclick=backspace()>Backspace</button> &nbsp";
-	document.getElementById("ingame").src='assets/'+Math.round(Math.random() * (20 - 0) + 0)+".gif";
+	document.getElementById("ingame").src = 'assets/' + Math.round(Math.random() * (20 - 0) + 0) + ".gif";
 
 }
 //timmer//
@@ -111,7 +117,7 @@ function counter() {
 				temp = temp + " " + failed[i];
 			}
 			alert("Failed Words Are :--> " + temp);
-			
+
 			document.getElementById("pa").innerHTML = "Game Over";
 			var dec = confirm("play again");
 			if (dec) {
@@ -123,36 +129,81 @@ function counter() {
 		}
 	}
 }
+// Getting High score form Mongo DB
+function getHS() {
+	try {
+		var data = JSON.stringify({
+			"id": "WordGameHS",
+		});
+		var xhr = new XMLHttpRequest();
+		xhr.addEventListener("readystatechange", function () {
+			if (this.readyState === 4) {
+				if (this.response != "object not Found") {
+					var responseData = JSON.parse(this.response)[0];
+					document.getElementById("highscorer").innerHTML = responseData.name +" With High score of "+responseData.score;
+					document.getElementById("landing").hidden=true; 
+					return responseData;
+				}
+			}
+		});
+		xhr.open("POST", url + "/find");
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+		xhr.send(data);
+	} catch (error) {
+		var localHS = JSON.parse(localStorage.getItem("highscore"));
+		return localHS
+	}
+}
+
+//Function to update HS
+function UpdateHS(name, lifetimeCounter) {
+
+	var data = JSON.stringify({
+		"id": "WordGameHS",
+		'info': {
+			"name": name,
+			"score": lifetimeCounter
+		},
+		'TimeStamp': Date.now(),
+		'Encrypted': false
+
+	});
+	var xhr = new XMLHttpRequest();
+	xhr.open("PATCH", url + "/Update");
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+	xhr.send(data);
+	xhr.addEventListener("readystatechange", function () {
+		if (this.readyState === 4) {
+			console.log(this.responseText);
+			HighScorerAlert();
+			alert("Congratulations On High Score")
+		}
+	});
+}
+
+
 //start
 
 function start() {
 	document.getElementById("pla").hidden = true;
 	document.getElementById("landing").hidden = true;
 	playerName = localStorage.getItem('PlayerName');
-	mail = localStorage.getItem('mail')|| "Not Provided";
-	playerNameht = document.getElementById("name").value;
-	mailht = document.getElementById("mail").value;
-
+	mail = localStorage.getItem('mail') || "Not Provided";
 	if (playerName == null || mail == null) {
-		if (playerNameht != "" || mailht != "") {
-			localStorage.setItem('PlayerName', playerNameht);
-			localStorage.setItem("mail", mailht);
-			start();
-		}
 		document.getElementById("info").hidden = false;
-		playerName = document.getElementById("name").value;
-		mail = document.getElementById("mail").value;
-
 	} else {
 		document.getElementById("info").hidden = true;
 		document.getElementById("landing").hidden = true;
 		document.getElementById("mot").hidden = false;
-		setTimeout(() => { play() }, 4000);
+		setTimeout(() => {
+			play()
+		}, 4000);
 
 	}
-
-
-
 }
 
 
@@ -167,7 +218,7 @@ function play() {
 	document.getElementById("ingame").hidden = false;
 	try {
 
-		if (playerName == null||playerName=="") {
+		if (playerName == null || playerName == "") {
 			playerName = prompt("Enter Player Name", "");
 			localStorage.setItem('PlayerName', playerName);
 		}
@@ -216,24 +267,15 @@ function endgame() {
 	clearInterval(cou);
 	document.getElementById("pla").setAttribute("onclick", "play()");
 	document.getElementById("pla").innerHTML = "Play";
-	$.ajax({
-		url: "/datastore.php",
-		type: "POST",
-		data: {
-			"sc": JSON.stringify(playe),
-			"name": playerName
-		},
-		success: function (response) {
-			// You will get response from your PHP page (what you echo or print)
-			alert(" your Score" + sc);
 
 
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			console.log(textStatus, errorThrown);
-		}
-	});
-	
+}
+function HighScorerAlert() {
+	pau = true;
+	document.getElementById("main").hidden = true;
+	document.getElementById("HighScorerAlert").hidden = false;
+	document.getElementById("pla").setAttribute("onclick", "play()");
+	document.getElementById("pla").innerHTML = "Start Again";
 }
 //storing Data in local memory
 function storeData(name, player) {
@@ -256,7 +298,7 @@ function storeData(name, player) {
 			mail = prompt("Enter Your mail ID");
 			localStorage.setItem("mail", mail);
 		}
-		
+
 		var PriviousGame = JSON.parse(localStorage.getItem(player.name));
 		var prviousstring = '<table><th><td>name</td><th><td>Right Word</td><th><td>Score</td></th>';
 		for (var i = 0; i < PriviousGame.length; i++) {
@@ -265,30 +307,6 @@ function storeData(name, player) {
 				prviousstring = prviousstring + "</table>";
 			}
 		}
-
-		try {
-			$.ajax({
-				url: "/mail.php?report=" + JSON.stringify(player),
-				type: "post",
-				data: {
-					'OldRes': prviousstring,
-					'email': mail
-				},
-				success: function (response) {
-					// You will get response from your PHP page (what you echo or print)
-					alert("Congratulations you are new High Scorer");
-				},
-				error: function (jqXHR, textStatus, errorThrown) {
-					console.log(textStatus, errorThrown);
-				}
-			});
-		} catch (e) {
-			var HS = 0;
-
-		}
-
-
-
 	} else {
 		var players = new Array();
 		players.push(player);
@@ -296,33 +314,12 @@ function storeData(name, player) {
 	}
 	//High Score Management
 
-	var HS = JSON.parse(localStorage.getItem("highscore"));
-	var HSscore = HS.score;
-	temp = {
-		"name": name,
-		"score": lifetimeCounter
-	}
+	var HSscore = getHS();
+
 	if (player.score > HSscore) {
-
-
-
-
-
 		try {
-			$.ajax({
-				url: "/data.php?q=take",
-				type: "post",
-				data: {
-					'HS': JSON.stringify(temp)
-				},
-				success: function (response) {
-					// You will get response from your PHP page (what you echo or print)
-					alert("Congratulations you are new High Scorer");
-				},
-				error: function (jqXHR, textStatus, errorThrown) {
-					console.log(textStatus, errorThrown);
-				}
-			});
+			return UpdateHS(name, lifetimeCounter)
+
 		} catch (e) {
 			var HS = 0;
 
@@ -330,6 +327,8 @@ function storeData(name, player) {
 	}
 
 }
+
+
 
 //window.location.reload();
 function Button(key) {

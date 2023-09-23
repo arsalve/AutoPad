@@ -2,7 +2,7 @@ var url = '';
 if (window.location.href.includes("localhost:8080")) {
     url = "http://localhost:8080";
 } else {
-    url = "https://project-notepad.herokuapp.com";
+    url = "https://autopad.onrender.com";
 }
 // Importing 'crypto' module 
 
