@@ -111,13 +111,14 @@ function counter() {
 		life--;
 		if (life < 0) {
 			clearInterval(cou);
+			
 			alert("Game Over with lifetime " + lifetimeCounter);
 			var temp = "";
 			for (i = 0; i < failed.length; i++) {
 				temp = temp + " " + failed[i];
 			}
 			alert("Failed Words Are :--> " + temp);
-
+			endgame();
 			document.getElementById("pa").innerHTML = "Game Over";
 			var dec = confirm("play again");
 			if (dec) {
@@ -125,7 +126,7 @@ function counter() {
 			} else {
 				location.reload();
 			}
-			endgame();
+		
 		}
 	}
 }
@@ -140,7 +141,7 @@ function getHS() {
 			if (this.readyState === 4) {
 				if (this.response != "object not Found") {
 					var responseData = JSON.parse(this.response)[0];
-					document.getElementById("highscorer").innerHTML = responseData.name +" With High score of "+responseData.score;
+					document.getElementById("highscorer").innerHTML = responseData.HS.name +" With High score of "+responseData.HS.score;
 					document.getElementById("landing").hidden=true; 
 					return responseData;
 				}
@@ -162,11 +163,10 @@ function UpdateHS(name, lifetimeCounter) {
 
 	var data = JSON.stringify({
 		"id": "WordGameHS",
-		'info': {
+		"HS":{
 			"name": name,
 			"score": lifetimeCounter
 		},
-		'TimeStamp': Date.now(),
 		'Encrypted': false
 
 	});
@@ -260,10 +260,9 @@ function resume() {
 }
 //End Game function
 function endgame() {
-
+	storeData(playerName, playe);
 	document.getElementById("ingame").hidden = true;
 	var playe = new player(playerName, failed, sc, right, lifetimeCounter);
-	storeData(playerName, playe);
 	clearInterval(cou);
 	document.getElementById("pla").setAttribute("onclick", "play()");
 	document.getElementById("pla").innerHTML = "Play";
@@ -281,7 +280,6 @@ function HighScorerAlert() {
 function storeData(name, player) {
 	var teobj = [];
 	var flag = 0;
-
 	var temp;
 	for (var i = 0; i < localStorage.length; i++) {
 		if (name == localStorage.key(i)) {
@@ -298,15 +296,15 @@ function storeData(name, player) {
 			mail = prompt("Enter Your mail ID");
 			localStorage.setItem("mail", mail);
 		}
-
-		var PriviousGame = JSON.parse(localStorage.getItem(player.name));
-		var prviousstring = '<table><th><td>name</td><th><td>Right Word</td><th><td>Score</td></th>';
-		for (var i = 0; i < PriviousGame.length; i++) {
-			prviousstring = prviousstring + "<tr><td>" + JSON.stringify(PriviousGame[i].name) + "</td><td> " + JSON.stringify(PriviousGame[i].right.toString()) + "</td><td> " + JSON.stringify(PriviousGame[i].score) + "</td>";
+		var PriviousGame = JSON.parse(localStorage.getItem(name));
+		var prviousstring = '<table border=1px><th><td>name</td> <td>Right Word</td> <td>Score</td> </th> ';
+		for (var i = 0; i < PriviousGame.length-1; i++) {
+			prviousstring = prviousstring + "<tr><td></td><td>" + JSON.stringify(PriviousGame[i].name) + "</td><td> " + JSON.stringify(PriviousGame[i].right.toString()) + "</td><td> " + JSON.stringify(PriviousGame[i].score) + "</td>";
 			if (i == PriviousGame.length - 1) {
 				prviousstring = prviousstring + "</table>";
 			}
 		}
+		document.getElementById("Privious").innerHTML=prviousstring;
 	} else {
 		var players = new Array();
 		players.push(player);
@@ -316,7 +314,7 @@ function storeData(name, player) {
 
 	var HSscore = getHS();
 
-	if (player.score > HSscore) {
+	if (score > HSscore) {
 		try {
 			return UpdateHS(name, lifetimeCounter)
 

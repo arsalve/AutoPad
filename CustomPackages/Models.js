@@ -11,6 +11,9 @@ const schema = mongoose.Schema({
     },
     'Encrypted': {
         type: String
+    },
+    'HS':{
+        type: Object
     }
 },
     {
