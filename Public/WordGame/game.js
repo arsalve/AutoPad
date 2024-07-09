@@ -199,11 +199,11 @@ function start() {
 		document.getElementById("info").hidden = true;
 		document.getElementById("landing").hidden = true;
 		document.getElementById("mot").hidden = false;
+ }
 		setTimeout(() => {
 			play()
 		}, 4000);
 
-	}
 }
 
 
